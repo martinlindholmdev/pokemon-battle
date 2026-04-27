@@ -21,7 +21,7 @@ Invoke-RestMethod http://localhost:4000/api/health
 
 Use a web service connected to `https://github.com/martinlindholmdev/pokemon-battle` on branch `main`.
 
-- Build command: `npm ci && npm run build`
+- Build command: `npm ci --include=dev && npm run build`
 - Start command: `npm start`
 - Health path: `/api/health`
 - Runtime: Node
@@ -33,6 +33,8 @@ Required env vars on Render:
 - `MONGODB_URI` set to the Atlas URI
 - `JWT_SECRET`
 - Optional `WBS_LLM_URL`, `WBS_LLM_MODEL`, `WBS_LLM_API_KEY`
+
+Render builds need dev dependencies for TypeScript and Vite, so the build command explicitly includes dev dependencies even though runtime uses `NODE_ENV=production`.
 
 ## Health Checks
 

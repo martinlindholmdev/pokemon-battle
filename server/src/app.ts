@@ -1,5 +1,6 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import fs from "node:fs";
 import express from "express";
 import helmet from "helmet";
 import { authRouter } from "./routes/auth.js";
@@ -29,10 +30,18 @@ export function createApp() {
   app.use("/auth", authRouter);
   app.use("/leaderboard", leaderboardRouter);
 
-  const clientDist = path.resolve(__dirname, "../../client/dist");
+  const clientDistCandidates = [
+    path.resolve(process.cwd(), "client/dist"),
+    path.resolve(__dirname, "../../client/dist")
+  ];
+  const clientDist = clientDistCandidates.find((candidate) => fs.existsSync(path.join(candidate, "index.html"))) ?? clientDistCandidates[0];
   app.use(express.static(clientDist));
-  app.get(/^(?!\/api).*/, (_req, res) => {
-    res.sendFile(path.join(clientDist, "index.html"));
+  app.use((req, res, next) => {
+    if (req.method === "GET" && !req.path.startsWith("/api")) {
+      res.sendFile(path.join(clientDist, "index.html"));
+      return;
+    }
+    next();
   });
 
   app.use(errorHandler);

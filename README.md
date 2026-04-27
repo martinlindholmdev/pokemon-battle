@@ -73,7 +73,7 @@ Secrets are server-only. Do not create `VITE_*` secrets.
 
 Render should use:
 
-- Build command: `npm ci && npm run build`
+- Build command: `npm ci --include=dev && npm run build`
 - Start command: `npm start`
 - Health check path: `/api/health`
 

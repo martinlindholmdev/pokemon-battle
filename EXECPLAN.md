@@ -34,7 +34,7 @@ The visible proof of completion is:
 - [x] (2026-04-27) Implemented backend health, auth, leaderboard, aliases, validation, rate limits, and optional AI recap fallback.
 - [x] (2026-04-27) Implemented frontend routes, auth state, PokeAPI fetching, roster persistence, battle simulation, leaderboard UI, and responsive CSS.
 - [x] (2026-04-27) Ran local typecheck, build, lint, audit, health, and Playwright browser flow checks successfully.
-- [ ] Commit and push implementation.
+- [x] (2026-04-27) Committed and pushed implementation commit `d3e1c70637a5b74080f979ace630b76360d75f57` to `main`.
 - [ ] Deploy to Render.
 - [ ] Verify live deployment.
 
@@ -45,6 +45,8 @@ The visible proof of completion is:
 - A later plan-review session could see `RENDER_API_KEY`, but the implementation session must still re-check its own process environment.
 - Local Atlas connectivity does not prove Render-to-Atlas connectivity. Render-hosted services need Atlas network access for Render outbound IP ranges, or Atlas must already allow the relevant network range.
 - Local MongoDB ping succeeded but collection reads failed with authentication. The server now verifies an application collection read on startup and falls back to the alternate configured Mongo URI without logging either URI.
+- First Render deploy failed because the service had `NODE_ENV=production`, causing `npm ci` to omit dev dependencies needed for TypeScript/Vite build. Build command was updated to `npm ci --include=dev && npm run build`.
+- Second Render deploy reached `live` and production `/api/health` returned ok, but the first live root page check returned 404. The server SPA fallback was changed from a regex route to explicit non-API GET handling with client-dist path candidate checks.
 - User chose the max-autonomy Atlas strategy: temporarily allow `0.0.0.0/0` in Atlas Network Access for this demo run, then remove or tighten it after Render live verification. This is intentionally temporary and depends on strong database credentials.
 - GitHub MCP code search initially failed because the local MCP server was not receiving `GITHUB_PERSONAL_ACCESS_TOKEN`. The token was stored as a Windows user environment variable, `C:\Users\Martin\.codex\config.toml` was updated to whitelist `env_vars = ["GITHUB_PERSONAL_ACCESS_TOKEN"]` for `[mcp_servers.github]`, and a restarted Codex session confirmed GitHub MCP code search works.
 

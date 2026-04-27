@@ -17,3 +17,10 @@
 - Playwright Chromium installed locally for repeatable browser verification.
 - Browser verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
 - Screenshots saved under `docs/screenshots/`.
+- Committed and pushed `d3e1c70637a5b74080f979ace630b76360d75f57` to `main`.
+- Created Render service `pokemon-battle` (`srv-d7nkhtqqqhas73fuar30`) at `https://pokemon-battle-ffwr.onrender.com`; first deploy `dep-d7nkhuqqqhas73fuaro0` failed during build because production install omitted TypeScript/React type dev dependencies.
+- Updated Render build command guidance to `npm ci --include=dev && npm run build`.
+- Second Render deploy `dep-d7nkk1beo5us73fc8730` reached `live`; `/api/health` returned production `status: ok`, Mongo state `connected`, ping `true`.
+- Live root page initially returned 404 while health worked. Replaced the regex SPA fallback with an explicit non-API GET fallback and client-dist path candidate check.
+- Re-ran `npm run typecheck`, `npm run build`, and `npm run lint`; all passed.
+- Local production root check after fallback fix returned HTTP 200 and health `ok`.

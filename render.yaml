@@ -6,6 +6,6 @@ services:
     region: frankfurt
     repo: https://github.com/martinlindholmdev/pokemon-battle
     branch: main
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health

@@ -41,3 +41,11 @@ Screenshots:
 
 - No persistent automated test suite is committed yet; current verification is command-based and browser-script based.
 - Battle logic is intentionally simple and does not implement full Pokemon type effectiveness.
+
+## Render Verification
+
+- Service `pokemon-battle` was created at `https://pokemon-battle-ffwr.onrender.com`.
+- First deploy `dep-d7nkhuqqqhas73fuaro0` failed during build because Render's production environment omitted TypeScript/React type dev dependencies. The build command was updated to include dev dependencies during build.
+- Second deploy `dep-d7nkk1beo5us73fc8730` reached live.
+- `GET https://pokemon-battle-ffwr.onrender.com/api/health` returned `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
+- Live root initially returned 404; local fallback fix was verified with root HTTP 200 and health `ok` before the follow-up commit.
