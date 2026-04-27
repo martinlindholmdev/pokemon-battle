@@ -44,6 +44,16 @@ Render builds need dev dependencies for TypeScript and Vite, so the build comman
 
 Production health endpoint: `https://pokemon-battle-ffwr.onrender.com/api/health`
 
+After every deploy, verify:
+
+- `/api/health`
+- `/`
+- `/leaderboard`
+- register/login
+- roster add
+- battle completion
+- leaderboard score display
+
 ## Logs
 
 Render service logs should be checked after deploy failures. Do not paste secrets into logs or issue reports.
@@ -62,3 +72,7 @@ If login/register hangs or `/api/health` stops responding on Render, check servi
 ## Secret Rotation
 
 Rotate `JWT_SECRET`, MongoDB credentials, and `WBS_LLM_API_KEY` if they are exposed. Update Render env vars and restart the service.
+
+## Cleanup Notes
+
+The repository no longer ships the post-deploy workflow presentation route or `/api/agent-workflow`. Product runtime routes should stay focused on the Pokemon app.

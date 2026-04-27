@@ -62,14 +62,14 @@ export function HomePage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Pokedex link active</p>
-          <h1>Choose your squad</h1>
+          <p className="eyebrow">Live Pokedex</p>
+          <h1>Build a battle team</h1>
         </div>
         <div className="mission-card">
-          <strong>How to play</strong>
-          <span>1. search or scan Pokemon</span>
-          <span>2. add 1-6 to roster</span>
-          <span>3. battle and post score</span>
+          <strong>Match flow</strong>
+          <span>Pick 1-6 Pokemon</span>
+          <span>Choose a lead fighter</span>
+          <span>Post your arena score</span>
         </div>
       </div>
       <div className="pokedex-toolbar">
@@ -86,7 +86,7 @@ export function HomePage() {
           />
         </label>
         <div className="trainer-steps">
-          <strong>Next step</strong>
+          <strong>Next action</strong>
           <span>{roster.length === 0 ? "Add at least one Pokemon." : roster.length < 6 ? "Add more or go battle." : "Roster full. Go battle."}</span>
         </div>
       </div>
@@ -110,7 +110,7 @@ export function HomePage() {
       {status === "ready" && !query && visibleCount < pokemon.length && (
         <div className="load-more">
           <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + 48, pokemon.length))}>
-            Load more Pokemon
+            Load more
           </button>
           <span>
             Showing {filteredPokemon.length} of {pokemon.length}

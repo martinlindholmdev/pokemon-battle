@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Plus, Search } from "lucide-react";
+import { Check, Plus, Search } from "lucide-react";
 import type { PokemonSummary } from "../types/pokemon";
 
 export function PokemonCard({
@@ -22,10 +22,16 @@ export function PokemonCard({
           <img src={pokemon.image} alt={pokemon.name} loading="lazy" />
         </div>
         <h3>{pokemon.name}</h3>
-        <span className="card-link"><Search size={14} /> inspect</span>
+        <span className="card-link"><Search size={14} /> View details</span>
       </Link>
-      <button className="icon-button" onClick={() => onAdd(pokemon)} title="Add to roster" type="button">
-        {selected ? "OK" : <Plus size={18} />}
+      <button
+        aria-label={selected ? `${pokemon.name} is already in your roster` : `Add ${pokemon.name} to roster`}
+        className={selected ? "icon-button selected" : "icon-button"}
+        onClick={() => onAdd(pokemon)}
+        title={selected ? "Already in roster" : "Add to roster"}
+        type="button"
+      >
+        {selected ? <Check size={18} /> : <Plus size={18} />}
       </button>
     </article>
   );

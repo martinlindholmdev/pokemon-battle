@@ -1,9 +1,17 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import { z } from "zod";
 import { requireAuth } from "../middleware/auth.js";
 import { Score } from "../models/Score.js";
 
 const router = Router();
+
+const scoreLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 40,
+  standardHeaders: "draft-8",
+  legacyHeaders: false
+});
 
 const scoreSchema = z.object({
   score: z.number().int().min(0).max(999999),
@@ -18,12 +26,12 @@ router.get("/", async (_req, res, next) => {
     const scores = await Score.find()
       .sort({ score: -1, createdAt: -1 })
       .limit(25)
-      .populate("userId", "displayName email")
+      .populate("userId", "displayName")
       .lean();
 
     res.json({
       scores: scores.map((entry) => {
-        const user = entry.userId as unknown as { displayName?: string; email?: string };
+        const user = entry.userId as unknown as { displayName?: string };
         return {
           id: String(entry._id),
           score: entry.score,
@@ -32,8 +40,7 @@ router.get("/", async (_req, res, next) => {
           team: entry.team,
           opponent: entry.opponent,
           createdAt: entry.createdAt,
-          displayName: user.displayName ?? "Trainer",
-          email: user.email
+          displayName: user.displayName ?? "Trainer"
         };
       })
     });
@@ -42,7 +49,7 @@ router.get("/", async (_req, res, next) => {
   }
 });
 
-router.post("/", requireAuth, async (req, res, next) => {
+router.post("/", scoreLimiter, requireAuth, async (req, res, next) => {
   try {
     const input = scoreSchema.parse(req.body);
     const score = await Score.create({

@@ -6,9 +6,7 @@ export function HpBar({ value, label }: { value: number; label: string }) {
         <span>{label}</span>
         <strong>{clamped}</strong>
       </div>
-      <div className="hp__track">
-        <span style={{ width: `${clamped}%` }} />
-      </div>
+      <progress className="hp__bar" max={100} value={clamped} aria-label={`${label}: ${clamped}`} />
     </div>
   );
 }

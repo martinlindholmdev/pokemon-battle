@@ -173,7 +173,7 @@ export function BattlePage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Battle terminal</p>
+          <p className="eyebrow">Battle arena</p>
           <h1>{arena ? "Battle arena" : "Start the match"}</h1>
         </div>
         <div className="battle-controls">
@@ -190,7 +190,7 @@ export function BattlePage() {
       {notice && <p className="notice">{notice}</p>}
       {arena ? (
         <div className="battle-arena">
-          <div className="panel fighter">
+          <div className="panel fighter player">
             <div className="sprite-stage large attack-pulse">
               <img src={arena.player.image} alt={arena.player.name} />
             </div>
@@ -204,7 +204,7 @@ export function BattlePage() {
             <div className="move-grid">
               <button type="button" onClick={() => void performMove("strike")} disabled={Boolean(arena.outcome)}>
                 Strike
-                <small>Damage</small>
+                <small>Full damage</small>
               </button>
               <button type="button" onClick={() => void performMove("guard")} disabled={Boolean(arena.outcome)}>
                 Guard
@@ -224,7 +224,7 @@ export function BattlePage() {
               </div>
             )}
           </div>
-          <div className="panel fighter">
+          <div className="panel fighter opponent">
             <div className="sprite-stage large">
               <img src={arena.opponent.image} alt={arena.opponent.name} />
             </div>
@@ -235,7 +235,7 @@ export function BattlePage() {
       ) : (
         <div className="battle-setup">
           <article className="panel">
-            <p className="eyebrow">1. Choose fighter</p>
+            <p className="eyebrow">Lead fighter</p>
             <h2>{selectedPokemon?.name ?? "No Pokemon selected"}</h2>
             {selectedPokemon && (
               <div className="sprite-stage">
@@ -244,7 +244,7 @@ export function BattlePage() {
             )}
           </article>
           <article className="panel">
-            <p className="eyebrow">2. Read the rules</p>
+            <p className="eyebrow">Commands</p>
             <div className="status-strip vertical">
               <span>Strike: full damage</span>
               <span>Guard: reduce counter</span>
@@ -252,7 +252,7 @@ export function BattlePage() {
             </div>
           </article>
           <article className="panel">
-            <p className="eyebrow">3. Start</p>
+            <p className="eyebrow">Arena status</p>
             <h2>Ready</h2>
             <p>Press Start Battle. The arena will replace this setup screen.</p>
           </article>

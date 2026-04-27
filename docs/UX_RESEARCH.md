@@ -2,52 +2,44 @@
 
 Date: 2026-04-27
 
+## License-Safe Reference Decision
+
+The most-starred Pokemon battle repository found in GitHub search was `smogon/pokemon-showdown` with about 5.6k stars, but that repository is the battle simulator/server and is MIT licensed. The actual Pokemon Showdown frontend is `smogon/pokemon-showdown-client`, with about 670 stars and an AGPL-3.0 license. Because copying AGPL frontend code into this app would create license obligations and would not fit this React/Vite architecture, no Pokemon Showdown client code was copied.
+
+`pvpoke/pvpoke` was also reviewed as a battle UI reference. It is MIT licensed and battle-oriented, but it is a different PHP/JavaScript Pokemon GO PvP product. It informed product-level patterns only: fast team scanning, clear score/combat panels, and compact decision surfaces.
+
+The frontend in this repository is original React and CSS. Third-party projects were used for UX reference only.
+
 ## Sources Reviewed
 
-- PokeAPI documentation: https://pokeapi.co/docs/v2
-  - Relevant point: Pokemon detail responses include types, abilities, stats, and sprite/artwork URLs. The app keeps API usage modest by fetching a small list and detail pages on demand.
-- PokeAPI sprites repository: https://github.com/PokeAPI/sprites
-  - License/status: repository is a public data/artwork mirror; Pokemon artwork rights remain owned by their respective rights holders. The app hotlinks official-artwork URLs for educational demo use and does not redistribute sprite files.
+- PokeAPI docs: https://pokeapi.co/docs/v2
+  - Used for API shape, list/detail fields, type data, abilities, and stats.
+- PokeAPI sprites: https://github.com/PokeAPI/sprites
+  - Used as hotlinked official-artwork URLs. Artwork rights remain with their respective owners; no sprite files are redistributed.
 - Official Pokemon Pokedex: https://www.pokemon.com/us/pokedex
-  - Relevant point: strong Pokemon identity comes from large creature art, type labels, compact stats, and fast scanning.
-- Pokemon Showdown: https://github.com/matlink/Pokemon-Showdown
-  - License/status: MIT noted in repository search result. Inspected conceptually for battle log and HP bar conventions; no code copied.
-- pkmn organization projects: https://github.com/pkmn
-  - License/status: multiple MIT projects. Used as evidence that robust battle engines exist, but MVP uses a small deterministic simulation to avoid dependency and rules complexity.
-- MatheusPires99/pokedex: https://github.com/MatheusPires99/pokedex
-  - License/status: no license confirmed from quick search result, so used only as inspiration. Observed mobile-first detail/card emphasis; no code copied.
-- luttje/css-pokemon-gameboy: https://github.com/luttje/css-pokemon-gameboy
-  - License/status: MIT. Reviewed the retro Game Boy CSS direction, especially pixel borders, limited palette, low-fi controls, progress bars, and pixel rendering. No source code copied.
-- wobsoriano/poke95: https://github.com/wobsoriano/poke95
-  - License/status: MIT. Reviewed the Windows 95/Pokedex presentation for chunky panels, direct manipulation, and playful retro affordances. No source code copied.
-- learnapollo/pokedex-react: https://github.com/learnapollo/pokedex-react
-  - License/status: MIT. Reviewed popularity among React Pokedex examples and noted that scan/browse/detail flow matters more than a landing-page composition. No source code copied.
-- matheusmhq/pokedex-react-js: https://github.com/matheusmhq/pokedex-react-js
-  - License/status: MIT. Reviewed type-color tokens, animated Pokemon presentation, and compact card structure. No source code copied.
-- Pokemon Showdown: https://github.com/matlink/Pokemon-Showdown
-  - License/status: MIT noted during earlier review. Used as battle UX reference for the core pattern of two active combatants, HP bars, explicit turn log, and action choices. No source code copied.
-- DeusMalsith/pokemon-battle-system: https://github.com/DeusMalsith/pokemon-battle-system
-  - License/status not relied on for copying. Reviewed as a lightweight browser battle-system reference for arena composition and move-button expectations. No source code copied.
+  - Used for product cues: large creature art, type labels, compact stats, and fast visual scanning.
+- Pokemon Showdown server: https://github.com/smogon/pokemon-showdown
+  - MIT server/simulator reference. No code copied.
+- Pokemon Showdown client: https://github.com/smogon/pokemon-showdown-client
+  - AGPL-3.0 frontend reference. Reviewed for high-level battle UX only: opposing combatants, HP visibility, action commands, and turn log.
+- PvPoke: https://github.com/pvpoke/pvpoke
+  - MIT battle simulator reference. Reviewed for dense utility UI and battle/team-building structure. No code copied.
+- Pokedex Tracker: https://github.com/pokedextracker/pokedextracker.com
+  - MIT Pokedex product reference. Reviewed for completion-oriented browsing and clear collection states. No code copied.
+- PogoFrontier web client: https://github.com/PogoFrontier/pogo-web
+  - MIT battle frontend reference. Reviewed for multiplayer battle product framing. No code copied.
 
-## Local Design Decisions
+## Local Design Choices
 
-- First screen is a working Pokedex dashboard, not a marketing landing page.
-- Use a retro Game Boy/Pokedex console frame instead of a generic dark dashboard.
-- Use stable square artwork areas to avoid layout jump while images load.
-- Keep cards compact with clear add-to-roster actions and detail links.
-- Use pixel borders, chunky shadows, scanlines, animated sprites, and a low-fi green/yellow/red palette.
-- Battle screen uses familiar HP bars, a matchup layout, animated VS/result state, and a turn log rather than a full rules engine.
-- Empty, loading, error, auth, and leaderboard states are explicit.
-- Mobile navigation stacks cleanly; desktop uses a persistent side rail for repeated app use.
-- Add in-app rules/playbook content so players understand the loop without reading repo docs.
-- Add a real turn-by-turn arena instead of a one-click simulation: Start Battle loads an opponent, then Strike, Guard, and Focus moves advance HP bars and the battle log until a score posts.
+- The first screen is the usable Pokedex dashboard, not a marketing landing page.
+- The heavy retro/pixel direction was replaced with a cleaner trainer command center.
+- Cards use stable square artwork stages to prevent layout shift while images load.
+- The battle screen shows two active combatants, animated HP bars, a central command panel, and a rolling log.
+- The sidebar keeps the app efficient for repeated use: Pokedex, Roster, Battle, Leaderboard, Rules, and auth.
+- `/leaderboard` now serves the React page for browser navigation while `/api/leaderboard` remains the canonical API route.
+- Empty, loading, error, auth, battle-in-progress, and leaderboard states are explicitly styled.
+- Desktop, tablet, and mobile screenshots were regenerated after the redesign.
 
 ## Code Adaptation
 
-No third-party source code was copied or adapted. The updated React/CSS is original to this repository and uses the references only for visual direction and interaction patterns.
-
-## Responsive Acceptance
-
-- 390x844: navigation stacks, cards fit one column or narrow grid, battle panels stack, no clipped buttons.
-- 768x1024: sidebar and grids remain readable, forms keep tap-friendly controls.
-- 1440x900: dashboard uses available width without oversized marketing composition.
+No third-party source code was copied or adapted. The updated React/CSS is original to this repository.

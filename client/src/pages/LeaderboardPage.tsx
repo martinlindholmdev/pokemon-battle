@@ -13,7 +13,7 @@ export function LeaderboardPage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Arcade records</p>
+          <p className="eyebrow">Arena records</p>
           <h1>Leaderboard</h1>
         </div>
         <div className="mission-card">

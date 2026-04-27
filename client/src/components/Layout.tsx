@@ -25,16 +25,16 @@ export function Layout() {
           <span className="brand-mark">PB</span>
           <div>
             <strong>Pokemon Battle</strong>
-            <small>Retro battle console</small>
+            <small>Trainer command center</small>
           </div>
         </div>
         <div className="console-led">
           <span />
-          <small>System online</small>
+          <small>PokeAPI link ready</small>
         </div>
         <nav>
           <NavLink to="/">
-            <Home size={18} /> Dashboard
+            <Home size={18} /> Pokedex
           </NavLink>
           <NavLink to="/roster">
             <Shield size={18} /> Roster
@@ -65,7 +65,7 @@ export function Layout() {
             </>
           ) : (
             <>
-              <span>Guest mode</span>
+              <span>Viewing as guest</span>
               <NavLink to="/login">Log in to score</NavLink>
             </>
           )}
@@ -79,7 +79,7 @@ export function Layout() {
               </span>
             ))}
           </div>
-          <small>{roster.length < 1 ? "Add one Pokemon to unlock Battle." : `${roster.length}/6 ready. Battle is unlocked.`}</small>
+          <small>{roster.length < 1 ? "Add one Pokemon to unlock Battle." : `${roster.length}/6 ready for the arena.`}</small>
         </div>
       </aside>
       <main className="content">

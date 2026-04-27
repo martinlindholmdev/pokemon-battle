@@ -38,7 +38,7 @@ export function AuthPage({ mode }: { mode: "login" | "register" }) {
     <section className="auth-layout">
       <div>
         <p className="eyebrow">Trainer access</p>
-        <h1>{mode === "register" ? "Insert trainer card" : "Trainer card check"}</h1>
+        <h1>{mode === "register" ? "Create trainer card" : "Trainer login"}</h1>
         <p className="muted">
           Login unlocks roster battles, score uploads, and leaderboard placement.
         </p>

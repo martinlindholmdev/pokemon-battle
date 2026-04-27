@@ -3,16 +3,15 @@ import { AuthProvider } from "./auth/AuthContext";
 import { ProtectedRoute } from "./auth/ProtectedRoute";
 import { Layout } from "./components/Layout";
 import { AuthPage } from "./pages/AuthPage";
-import { AgentWorkflowPage } from "./pages/AgentWorkflowPage";
 import { BattlePage } from "./pages/BattlePage";
 import { HomePage } from "./pages/HomePage";
 import { LeaderboardPage } from "./pages/LeaderboardPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 import { PlaybookPage } from "./pages/PlaybookPage";
 import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 import { RosterPage } from "./pages/RosterPage";
 
 const router = createBrowserRouter([
-  { path: "/workflow", element: <AgentWorkflowPage /> },
   {
     path: "/",
     element: <Layout />,
@@ -29,7 +28,8 @@ const router = createBrowserRouter([
           { path: "roster", element: <RosterPage /> },
           { path: "battle", element: <BattlePage /> }
         ]
-      }
+      },
+      { path: "*", element: <NotFoundPage /> }
     ]
   }
 ]);

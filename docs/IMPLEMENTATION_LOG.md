@@ -2,44 +2,35 @@
 
 ## 2026-04-27
 
-- Read repository instructions, `.agent/PLANS.md`, `EXECPLAN.md`, handoff, WBS brief, and post-deploy follow-up plan.
-- Confirmed local environment: Node `v24.13.0`, npm `11.6.2`, `RENDER_API_KEY=<set>`.
-- Confirmed branch `main...origin/main`; `.gitignore` had an existing `.private/` addition, preserved.
-- Created npm workspace structure with `client`, `server`, `docs`, Render config, and `.env.example`.
-- Implemented Express API with MongoDB connection, `/api/health`, auth routes and aliases, leaderboard routes and aliases, JWT middleware, validation, rate limiting, and optional AI recap fallback.
-- Implemented React/Vite app with auth context, protected routes, PokeAPI client, localStorage roster, battle simulation, leaderboard posting, and responsive cockpit styling.
-- Completed bounded UX/code-reference research and recorded source/license notes in `docs/UX_RESEARCH.md`.
-- `npm install` completed and reported 0 vulnerabilities.
-- `npm run typecheck`, workspace builds, root `npm run build`, `npm run lint`, and `npm audit` passed.
-- Local production server started on port `4000`, PID `14972`.
-- Local `/api/health` returned `status: ok`, Mongo state `connected`, ping `true`.
-- Registration initially failed because local MongoDB accepted ping but rejected collection reads. Added startup collection-read verification and alternate Mongo URI fallback without logging connection strings.
-- Playwright Chromium installed locally for repeatable browser verification.
-- Browser verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
-- Screenshots saved under `docs/screenshots/`.
-- Committed and pushed `d3e1c70637a5b74080f979ace630b76360d75f57` to `main`.
-- Created Render service `pokemon-battle` (`srv-d7nkhtqqqhas73fuar30`) at `https://pokemon-battle-ffwr.onrender.com`; first deploy `dep-d7nkhuqqqhas73fuaro0` failed during build because production install omitted TypeScript/React type dev dependencies.
-- Updated Render build command guidance to `npm ci --include=dev && npm run build`.
-- Second Render deploy `dep-d7nkk1beo5us73fc8730` reached `live`; `/api/health` returned production `status: ok`, Mongo state `connected`, ping `true`.
-- Live root page initially returned 404 while health worked. Replaced the regex SPA fallback with an explicit non-API GET fallback and client-dist path candidate check.
-- Re-ran `npm run typecheck`, `npm run build`, and `npm run lint`; all passed.
-- Local production root check after fallback fix returned HTTP 200 and health `ok`.
-- Follow-up commit `286bee5e0d4e9f3b4f8f373c34934ab8812ccf08` pushed to `main`.
-- Auto deploy `dep-d7nkn70k1i2s738321bg` reached `live`.
-- Verified live endpoints: `https://pokemon-battle-ffwr.onrender.com/api/health` returned production `status: ok`, `/` returned HTTP 200, and `/leaderboard` returned HTTP 200.
-- Live Playwright verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
-- Live screenshots saved under `docs/screenshots/live-*.png`.
-- Added `PLAYBOOK.md` with game rules, battle logic, scoring, roster rules, and demo dependency notes.
-- Later live auth/health checks timed out; Render logs showed MongoDB Atlas network access blocking the service. Login/register require restoring Atlas access for the Render service.
-- Reworked frontend UX after a second reference pass: retro Game Boy/Pokedex console frame, animated Pokemon cards, scanline screen surface, clearer how-to-play guidance, in-app Rules page, richer battle terminal, and arcade-style leaderboard.
-- Verified the redesign locally with `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright browser flow. Local screenshots were refreshed.
-- Pushed redesign commit `d823c4b866e1730ee4adc99b41277039f0ef0029`; Render deploy `dep-d7nm5tojs32c73d4mdpg` reached live.
-- Verified live `/api/health`, `/`, `/playbook`, and full Playwright auth/roster/battle/leaderboard flow after the redesign. Live screenshots were refreshed.
-- Added UX-flow improvements: first-generation Pokedex search, visible selected roster state, sidebar roster slots, next-step guidance, stronger playbook guidance, and a turn-by-turn interactive battle arena with Strike, Guard, Focus, HP updates, and rolling battle log.
-- Tightened Playwright verification so leaderboard success requires an actual `.leader-row`, not just the signed-in trainer name in the sidebar.
-- Pushed interactive arena commit `42722bb3153c38147f4ed6933eec9c4db67ffeca`; Render deploy `dep-d7nmgpek1jcs739ldcsg` reached live.
-- Verified live `/api/health`, root page, and full Playwright flow through the move-based arena and leaderboard row.
-- Cleaned up the battle arena after visual review: active battle now hides the setup cards, uses a smaller arena heading, fixes generic sprite sizing so setup previews do not crop, and keeps the move controls/log in the active arena only.
-- Added a live post-deploy agent workflow surface: installed the Vercel AI SDK package `ai` in the server workspace, added read-only `/api/agent-workflow`, added `/agent-workflow` in the React app, and kept Pokemon app behavior isolated.
-- Verified workflow addition locally with `npm run typecheck`, `npm run lint`, `npm run build`, `npm audit`, local `/api/health`, local `/api/agent-workflow`, and local `/agent-workflow` returning HTTP 200.
-- Corrected the workflow experience to be independent from the Pokemon app shell by adding a standalone `/workflow` route with a full-screen Vercel-style workflow canvas, while keeping `/agent-workflow` available inside the app navigation.
+- Built the single-repository full-stack Pokemon Battle app with a React/Vite client and Express/MongoDB API.
+- Implemented auth, JWT-protected routes, PokeAPI browsing, local roster management, turn-based battle commands, score posting, and leaderboard display.
+- Deployed the app to Render at `https://pokemon-battle-ffwr.onrender.com`.
+- Verified production health and full user flow after the original deployment.
+- Reworked the UI after review into a cleaner trainer command-center interface.
+- Removed the post-deploy workflow presentation surface from runtime and documentation:
+  - deleted the standalone workflow page,
+  - deleted `/api/agent-workflow`,
+  - removed the unused `ai` package,
+  - deleted workflow presentation documents.
+- Refreshed README, architecture, testing, security, runbook, and UX research docs around the product rather than the build process.
+
+## Latest Local Verification
+
+- `npm run typecheck`: passed.
+- `npm run build`: passed.
+- `npm run lint`: passed.
+- `npm audit`: passed with 0 vulnerabilities.
+- Secret scan: no committed secret values found.
+- Unsafe DOM/code scan: no dangerous sink matches.
+- Local production server: `http://localhost:4000`, PID `28692`.
+- Local `/api/health`: `status: ok`, Mongo state `connected`, ping `true`.
+- Playwright browser flow: dashboard, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display all passed.
+- Browser console: no warnings or errors during the verification script.
+
+## Latest Screenshots
+
+- `docs/screenshots/local-desktop-1440x900.png`
+- `docs/screenshots/local-tablet-768x1024.png`
+- `docs/screenshots/local-mobile-390x844.png`
+- `docs/screenshots/local-battle-arena.png`
+- `docs/screenshots/local-flow-desktop.png`

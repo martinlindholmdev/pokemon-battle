@@ -20,20 +20,22 @@ export function RosterPage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Roster cartridge</p>
+          <p className="eyebrow">Trainer roster</p>
           <h1>My squad</h1>
         </div>
         <div className="mission-card">
           <strong>{roster.length}/6 slots filled</strong>
-          <span>Choose one fighter in Battle</span>
-          <span>Remove extras anytime</span>
+          <span>Choose a lead in Battle</span>
+          <span>Trim the bench anytime</span>
         </div>
       </div>
       <div className="grid">
         {roster.map((pokemon) => (
           <article className="pokemon-card" key={pokemon.id}>
             <Link to={`/pokemon/${pokemon.id}`} className="pokemon-card__main">
-              <img src={pokemon.image} alt={pokemon.name} />
+              <div className="sprite-stage">
+                <img src={pokemon.image} alt={pokemon.name} />
+              </div>
               <h3>{pokemon.name}</h3>
             </Link>
             <button type="button" onClick={() => setRoster(removeFromRoster(pokemon.id))}>

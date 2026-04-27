@@ -1,48 +1,51 @@
 # Pokemon Battle
 
-A single-repository full-stack Pokemon battle app for the WBS Coding School project. Trainers can register, log in, browse Pokemon from PokeAPI, build a local roster, run battles, post scores, and view a MongoDB-backed leaderboard.
+![Pokemon Battle dashboard](docs/screenshots/local-desktop-1440x900.png)
 
-## Features
+Pokemon Battle is a full-stack browser game where trainers browse the first-generation Pokedex, build a roster, enter a turn-based battle arena, and post scores to a live leaderboard.
 
-- React + Vite Pokemon dashboard with responsive desktop/mobile layout.
-- JWT registration and login with bcrypt password hashing.
-- PokeAPI list/detail browsing with stable official-artwork cards.
-- Retro Game Boy/Pokedex-inspired UI with animated cards, scanline panels, and in-app rules.
-- LocalStorage roster with up to six Pokemon.
-- Simple battle simulator with HP bars, turn log, score calculation, and leaderboard posting.
-- Express API with MongoDB health check, validation, rate limiting, and production static hosting.
+The app is intentionally compact: one React client, one Express API, one MongoDB-backed leaderboard, and a production deployment on Render.
 
-Game rules are documented in `PLAYBOOK.md`.
+## What You Can Do
+
+- Search and browse 151 first-generation Pokemon from PokeAPI.
+- Inspect official artwork, type badges, core stats, height, weight, and abilities.
+- Save up to six Pokemon in a local roster.
+- Register or log in as a trainer.
+- Start a battle with a selected lead Pokemon.
+- Use Strike, Guard, and Focus commands while HP bars and the battle log update.
+- Post the final score to a MongoDB-backed leaderboard.
+- Read the in-app rules page for the scoring model and battle loop.
+
+## Screenshots
+
+| Desktop | Battle Arena |
+| --- | --- |
+| ![Desktop Pokedex](docs/screenshots/local-desktop-1440x900.png) | ![Battle arena](docs/screenshots/local-battle-arena.png) |
+
+| Tablet | Mobile |
+| --- | --- |
+| ![Tablet layout](docs/screenshots/local-tablet-768x1024.png) | ![Mobile layout](docs/screenshots/local-mobile-390x844.png) |
 
 ## Stack
 
 - Client: React, TypeScript, React Router, Vite, lucide-react, CSS.
 - Server: Express, TypeScript, Mongoose, Zod, JWT, bcryptjs, helmet, express-rate-limit.
-- Data: MongoDB local or Atlas.
+- Data: MongoDB local development or MongoDB Atlas production.
+- External data: PokeAPI and PokeAPI official artwork URLs.
 - Deployment: Render web service.
-
-## Screenshots
-
-- Desktop flow: `docs/screenshots/local-flow-desktop.png`
-- Mobile 390x844: `docs/screenshots/local-mobile-390x844.png`
-- Tablet 768x1024: `docs/screenshots/local-tablet-768x1024.png`
-- Desktop 1440x900: `docs/screenshots/local-desktop-1440x900.png`
 
 ## Local Setup
 
-1. Copy `.env.example` to `.env` and fill the local values.
-2. Install dependencies:
+Copy `.env.example` to `.env` and fill the local values. Do not commit `.env`.
 
 ```powershell
 npm install
-```
-
-3. Build and run:
-
-```powershell
 npm run build
 npm start
 ```
+
+The production-style local app runs at `http://localhost:4000`.
 
 For development:
 
@@ -61,18 +64,18 @@ npm run dev
 - `WBS_LLM_MODEL`
 - `WBS_LLM_API_KEY`
 
-Secrets are server-only. Do not create `VITE_*` secrets.
+Secrets stay server-side. Do not create `VITE_*` variables for secrets.
 
 ## Scripts
 
-- `npm run dev` starts client and server watchers.
-- `npm run build` builds client and server.
-- `npm start` serves the built app from Express.
-- `npm run typecheck` runs TypeScript checks.
-- `npm run lint` runs ESLint.
-- `npm audit` checks dependency advisories.
+- `npm run dev`: start client and server watchers.
+- `npm run build`: build client and server.
+- `npm start`: serve the built app from Express.
+- `npm run typecheck`: run TypeScript checks.
+- `npm run lint`: run ESLint.
+- `npm audit`: check dependency advisories.
 
-## Deployment Notes
+## Deployment
 
 Render should use:
 
@@ -82,8 +85,13 @@ Render should use:
 
 Production should set `MONGODB_URI` to the Atlas connection string, plus `JWT_SECRET` and optional `WBS_LLM_*` values.
 
-## Troubleshooting
+Current production URL: https://pokemon-battle-ffwr.onrender.com
 
-- If `/api/health` is degraded, verify MongoDB credentials and Atlas network access.
-- If registration fails locally while health is ok, the local MongoDB may allow ping but reject collection reads; the server can fall back to `MONGODB_ATLAS_URI` when configured.
-- If PokeAPI is unavailable, the UI shows friendly load errors and auth/leaderboard routes remain available.
+## Documentation
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Runbook](docs/RUNBOOK.md)
+- [Testing](docs/TESTING.md)
+- [Security Report](docs/SECURITY_REPORT.md)
+- [UX Research](docs/UX_RESEARCH.md)
+- [Game Rules](PLAYBOOK.md)
