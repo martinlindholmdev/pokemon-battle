@@ -49,3 +49,7 @@ Screenshots:
 - Second deploy `dep-d7nkk1beo5us73fc8730` reached live.
 - `GET https://pokemon-battle-ffwr.onrender.com/api/health` returned `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
 - Live root initially returned 404; local fallback fix was verified with root HTTP 200 and health `ok` before the follow-up commit.
+- Follow-up deploy `dep-d7nkn70k1i2s738321bg` reached live from commit `286bee5e0d4e9f3b4f8f373c34934ab8812ccf08`.
+- Verified live `GET /api/health`, `/`, and `/leaderboard`; all returned 200-class success.
+- Live Playwright verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
+- Live screenshots: `docs/screenshots/live-flow-desktop.png`, `docs/screenshots/live-mobile-390x844.png`, `docs/screenshots/live-tablet-768x1024.png`, `docs/screenshots/live-desktop-1440x900.png`.

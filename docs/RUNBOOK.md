@@ -21,6 +21,8 @@ Invoke-RestMethod http://localhost:4000/api/health
 
 Use a web service connected to `https://github.com/martinlindholmdev/pokemon-battle` on branch `main`.
 
+Current service URL: `https://pokemon-battle-ffwr.onrender.com`
+
 - Build command: `npm ci --include=dev && npm run build`
 - Start command: `npm start`
 - Health path: `/api/health`
@@ -39,6 +41,8 @@ Render builds need dev dependencies for TypeScript and Vite, so the build comman
 ## Health Checks
 
 `/api/health` should return `status: "ok"`, Mongo state `connected`, and ping `true`. A degraded result usually points to MongoDB credentials or Atlas network access.
+
+Production health endpoint: `https://pokemon-battle-ffwr.onrender.com/api/health`
 
 ## Logs
 

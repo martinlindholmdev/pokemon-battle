@@ -47,6 +47,6 @@ Production is same-origin: Express serves the SPA and `/api` routes. Helmet is e
 
 ## Residual Risks
 
-- Atlas temporary `0.0.0.0/0` access should be removed or tightened after deployment verification.
+- Atlas temporary `0.0.0.0/0` access should be removed or tightened now that deployment verification has passed.
 - The optional WBS LLM endpoint is isolated server-side and falls back locally, but its availability is not required.
 - Battle simulation is game logic, not a security boundary.

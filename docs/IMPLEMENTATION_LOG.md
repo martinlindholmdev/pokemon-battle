@@ -24,3 +24,8 @@
 - Live root page initially returned 404 while health worked. Replaced the regex SPA fallback with an explicit non-API GET fallback and client-dist path candidate check.
 - Re-ran `npm run typecheck`, `npm run build`, and `npm run lint`; all passed.
 - Local production root check after fallback fix returned HTTP 200 and health `ok`.
+- Follow-up commit `286bee5e0d4e9f3b4f8f373c34934ab8812ccf08` pushed to `main`.
+- Auto deploy `dep-d7nkn70k1i2s738321bg` reached `live`.
+- Verified live endpoints: `https://pokemon-battle-ffwr.onrender.com/api/health` returned production `status: ok`, `/` returned HTTP 200, and `/leaderboard` returned HTTP 200.
+- Live Playwright verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
+- Live screenshots saved under `docs/screenshots/live-*.png`.
