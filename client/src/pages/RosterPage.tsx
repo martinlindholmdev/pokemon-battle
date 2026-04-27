@@ -10,7 +10,7 @@ export function RosterPage() {
     return (
       <section className="empty-state">
         <h1>Your roster is empty</h1>
-        <p>Add Pokemon from the dashboard before entering battle.</p>
+        <p>Add Pokemon from the dashboard before entering battle. You only need one to start.</p>
         <Link className="primary link-button" to="/">Open Pokedex</Link>
       </section>
     );
@@ -19,8 +19,15 @@ export function RosterPage() {
   return (
     <section>
       <div className="page-heading">
-        <h1>My roster</h1>
-        <p className="muted">{roster.length}/6 Pokemon ready</p>
+        <div>
+          <p className="eyebrow">Roster cartridge</p>
+          <h1>My squad</h1>
+        </div>
+        <div className="mission-card">
+          <strong>{roster.length}/6 slots filled</strong>
+          <span>Choose one fighter in Battle</span>
+          <span>Remove extras anytime</span>
+        </div>
       </div>
       <div className="grid">
         {roster.map((pokemon) => (

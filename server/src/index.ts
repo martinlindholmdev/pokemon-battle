@@ -1,13 +1,19 @@
 import { createServer } from "node:http";
 import { createApp } from "./app.js";
 import { env } from "./config/env.js";
-import { connectDatabase, disconnectDatabase } from "./config/db.js";
+import { connectDatabase, disconnectDatabase, scheduleDatabaseReconnect } from "./config/db.js";
 
 const app = createApp();
 const server = createServer(app);
 
 async function start() {
-  await connectDatabase();
+  try {
+    await connectDatabase();
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : "MongoDB connection failed");
+    scheduleDatabaseReconnect();
+  }
+
   server.listen(env.PORT, "0.0.0.0", () => {
     console.log(`Pokemon Battle server listening on ${env.PORT}`);
   });

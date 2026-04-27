@@ -29,3 +29,7 @@
 - Verified live endpoints: `https://pokemon-battle-ffwr.onrender.com/api/health` returned production `status: ok`, `/` returned HTTP 200, and `/leaderboard` returned HTTP 200.
 - Live Playwright verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
 - Live screenshots saved under `docs/screenshots/live-*.png`.
+- Added `PLAYBOOK.md` with game rules, battle logic, scoring, roster rules, and demo dependency notes.
+- Later live auth/health checks timed out; Render logs showed MongoDB Atlas network access blocking the service. Login/register require restoring Atlas access for the Render service.
+- Reworked frontend UX after a second reference pass: retro Game Boy/Pokedex console frame, animated Pokemon cards, scanline screen surface, clearer how-to-play guidance, in-app Rules page, richer battle terminal, and arcade-style leaderboard.
+- Verified the redesign locally with `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright browser flow. Local screenshots were refreshed.

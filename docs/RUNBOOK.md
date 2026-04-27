@@ -52,6 +52,8 @@ Render service logs should be checked after deploy failures. Do not paste secret
 
 For the demo deployment, Atlas may temporarily allow `0.0.0.0/0`. Remove or tighten that rule after live verification, preferably replacing it with Render outbound IP ranges if available.
 
+If login/register hangs or `/api/health` stops responding on Render, check service logs for Atlas whitelist errors. The deployed app cannot authenticate users unless Render can reach Atlas.
+
 ## Redeploy / Rollback
 
 - Redeploy: push to `main` or trigger a Render deploy for the service.

@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { Dumbbell, Home, LogOut, Shield, Trophy, UserPlus } from "lucide-react";
+import { BookOpen, Dumbbell, Home, LogOut, Shield, Trophy, UserPlus } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 
 export function Layout() {
@@ -12,8 +12,12 @@ export function Layout() {
           <span className="brand-mark">PB</span>
           <div>
             <strong>Pokemon Battle</strong>
-            <small>Trainer cockpit</small>
+            <small>Retro battle console</small>
           </div>
+        </div>
+        <div className="console-led">
+          <span />
+          <small>System online</small>
         </div>
         <nav>
           <NavLink to="/">
@@ -27,6 +31,9 @@ export function Layout() {
           </NavLink>
           <NavLink to="/leaderboard">
             <Trophy size={18} /> Leaderboard
+          </NavLink>
+          <NavLink to="/playbook">
+            <BookOpen size={18} /> Rules
           </NavLink>
           {!user && (
             <NavLink to="/register">
@@ -52,7 +59,9 @@ export function Layout() {
         </div>
       </aside>
       <main className="content">
-        <Outlet />
+        <div className="screen-frame">
+          <Outlet />
+        </div>
       </main>
     </div>
   );

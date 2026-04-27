@@ -6,6 +6,7 @@ import { AuthPage } from "./pages/AuthPage";
 import { BattlePage } from "./pages/BattlePage";
 import { HomePage } from "./pages/HomePage";
 import { LeaderboardPage } from "./pages/LeaderboardPage";
+import { PlaybookPage } from "./pages/PlaybookPage";
 import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 import { RosterPage } from "./pages/RosterPage";
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "pokemon/:id", element: <PokemonDetailPage /> },
       { path: "leaderboard", element: <LeaderboardPage /> },
+      { path: "playbook", element: <PlaybookPage /> },
       { path: "login", element: <AuthPage mode="login" /> },
       { path: "register", element: <AuthPage mode="register" /> },
       {

@@ -84,8 +84,8 @@ export function BattlePage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Battle simulator</p>
-          <h1>Run a scored battle</h1>
+          <p className="eyebrow">Battle terminal</p>
+          <h1>Start the match</h1>
         </div>
         <div className="battle-controls">
           <select value={selected} onChange={(event) => setSelected(event.target.value)}>
@@ -98,21 +98,31 @@ export function BattlePage() {
           </button>
         </div>
       </div>
+      <div className="status-strip">
+        <span>Pick one roster Pokemon</span>
+        <span>Opponent is random</span>
+        <span>Score posts after the match</span>
+      </div>
       {notice && <p className="notice">{notice}</p>}
       {result ? (
         <div className="battle-grid">
           <div className="panel fighter">
-            <img src={result.player.image} alt={result.player.name} />
+            <div className="sprite-stage large attack-pulse">
+              <img src={result.player.image} alt={result.player.name} />
+            </div>
             <h2>{result.player.name}</h2>
             <HpBar label="HP" value={result.outcome === "win" ? 64 : 18} />
           </div>
           <div className="panel result-panel">
             <p className="eyebrow">{result.outcome === "win" ? "Victory" : "Defeat"}</p>
             <h2>{result.score} points</h2>
+            <div className="versus">VS</div>
             <ol className="battle-log">{result.turns.map((turn, index) => <li key={`${turn}-${index}`}>{turn}</li>)}</ol>
           </div>
           <div className="panel fighter">
-            <img src={result.opponent.image} alt={result.opponent.name} />
+            <div className="sprite-stage large">
+              <img src={result.opponent.image} alt={result.opponent.name} />
+            </div>
             <h2>{result.opponent.name}</h2>
             <HpBar label="HP" value={result.outcome === "win" ? 0 : 55} />
           </div>
@@ -120,7 +130,7 @@ export function BattlePage() {
       ) : (
         <div className="panel empty-state">
           <h2>Battle station ready</h2>
-          <p>Pick your lead Pokemon and start the simulation.</p>
+          <p>Pick your lead Pokemon, press start, and the terminal will roll the full turn log.</p>
         </div>
       )}
     </section>

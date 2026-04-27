@@ -13,8 +13,13 @@ export function LeaderboardPage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Global ranking</p>
+          <p className="eyebrow">Arcade records</p>
           <h1>Leaderboard</h1>
+        </div>
+        <div className="mission-card">
+          <strong>Score rules</strong>
+          <span>Wins get HP bonus</span>
+          <span>Losses still score</span>
         </div>
       </div>
       {error && <p className="error">{error}</p>}

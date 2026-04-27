@@ -27,7 +27,9 @@ export function PokemonDetailPage() {
     <section className="detail-layout">
       <div className="panel pokemon-portrait">
         <span className="pokemon-number">#{String(pokemon.id).padStart(3, "0")}</span>
-        <img src={pokemon.image} alt={pokemon.name} />
+        <div className="sprite-stage large">
+          <img src={pokemon.image} alt={pokemon.name} />
+        </div>
         <h1>{pokemon.name}</h1>
         <div className="badge-row">{pokemon.types.map((type) => <TypeBadge key={type} type={type} />)}</div>
         <button
@@ -43,6 +45,7 @@ export function PokemonDetailPage() {
         {notice && <p className="notice">{notice}</p>}
       </div>
       <div className="panel">
+        <p className="eyebrow">Pokedex report</p>
         <h2>Battle stats</h2>
         {Object.entries(pokemon.stats).map(([name, value]) => (
           <div className="stat" key={name}>
@@ -53,6 +56,11 @@ export function PokemonDetailPage() {
         ))}
         <h2>Abilities</h2>
         <div className="badge-row">{pokemon.abilities.map((ability) => <span className="chip" key={ability}>{ability}</span>)}</div>
+        <div className="status-strip vertical">
+          <span>Height: {pokemon.height}</span>
+          <span>Weight: {pokemon.weight}</span>
+          <span>Higher attack and speed improve battle damage.</span>
+        </div>
       </div>
     </section>
   );

@@ -7,9 +7,12 @@ A single-repository full-stack Pokemon battle app for the WBS Coding School proj
 - React + Vite Pokemon dashboard with responsive desktop/mobile layout.
 - JWT registration and login with bcrypt password hashing.
 - PokeAPI list/detail browsing with stable official-artwork cards.
+- Retro Game Boy/Pokedex-inspired UI with animated cards, scanline panels, and in-app rules.
 - LocalStorage roster with up to six Pokemon.
 - Simple battle simulator with HP bars, turn log, score calculation, and leaderboard posting.
 - Express API with MongoDB health check, validation, rate limiting, and production static hosting.
+
+Game rules are documented in `PLAYBOOK.md`.
 
 ## Stack
 

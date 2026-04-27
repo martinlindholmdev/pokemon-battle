@@ -30,7 +30,7 @@ async function request<T>(path: string, options: RequestInit = {}, token?: strin
   const data = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(data.error ?? "Request failed");
+    throw new Error(data.details ?? data.error ?? "Request failed");
   }
 
   return data as T;

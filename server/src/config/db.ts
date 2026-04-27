@@ -3,6 +3,7 @@ import { env } from "./env.js";
 
 export async function connectDatabase() {
   mongoose.set("strictQuery", true);
+  mongoose.set("bufferCommands", false);
   try {
     await mongoose.connect(env.mongoUri, {
       serverSelectionTimeoutMS: 8000
@@ -33,6 +34,18 @@ export async function pingDatabase() {
   }
   await mongoose.connection.db.admin().ping();
   return true;
+}
+
+export function scheduleDatabaseReconnect() {
+  setInterval(() => {
+    if (mongoose.connection.readyState !== 0) {
+      return;
+    }
+
+    connectDatabase().catch((error) => {
+      console.error(error instanceof Error ? error.message : "MongoDB reconnect failed");
+    });
+  }, 60_000).unref();
 }
 
 export function getMongoState() {

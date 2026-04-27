@@ -38,10 +38,15 @@ export function AuthPage({ mode }: { mode: "login" | "register" }) {
     <section className="auth-layout">
       <div>
         <p className="eyebrow">Trainer access</p>
-        <h1>{mode === "register" ? "Register your trainer profile" : "Log in to post battle scores"}</h1>
+        <h1>{mode === "register" ? "Insert trainer card" : "Trainer card check"}</h1>
         <p className="muted">
-          Build a six-Pokemon roster, run battles, and store your highest scores on the leaderboard.
+          Login unlocks roster battles, score uploads, and leaderboard placement.
         </p>
+        <div className="status-strip vertical">
+          <span>Passwords are hashed</span>
+          <span>JWT session lasts 2 hours</span>
+          <span>Scores require login</span>
+        </div>
       </div>
       <form className="panel form" onSubmit={submit}>
         {mode === "register" && (

@@ -53,3 +53,5 @@ Screenshots:
 - Verified live `GET /api/health`, `/`, and `/leaderboard`; all returned 200-class success.
 - Live Playwright verification passed for register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.
 - Live screenshots: `docs/screenshots/live-flow-desktop.png`, `docs/screenshots/live-mobile-390x844.png`, `docs/screenshots/live-tablet-768x1024.png`, `docs/screenshots/live-desktop-1440x900.png`.
+- Subsequent live auth checks timed out after Atlas network access blocked Render. This is an external Atlas allowlist issue, not a credential print/debug issue.
+- Retro frontend redesign local verification: `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright flow passed. The flow covered register, protected roster route, PokeAPI dashboard, roster add, battle, score post, and leaderboard display.

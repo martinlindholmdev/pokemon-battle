@@ -8,6 +8,7 @@ import { leaderboardRouter } from "./routes/leaderboard.js";
 import { healthRouter } from "./routes/health.js";
 import { aiRouter } from "./routes/ai.js";
 import { errorHandler } from "./middleware/error.js";
+import { requireDatabase } from "./middleware/database.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,12 +24,12 @@ export function createApp() {
   app.use(express.json({ limit: "100kb" }));
 
   app.use("/api/health", healthRouter);
-  app.use("/api/auth", authRouter);
-  app.use("/api/leaderboard", leaderboardRouter);
-  app.use("/api/ai", aiRouter);
+  app.use("/api/auth", requireDatabase, authRouter);
+  app.use("/api/leaderboard", requireDatabase, leaderboardRouter);
+  app.use("/api/ai", requireDatabase, aiRouter);
 
-  app.use("/auth", authRouter);
-  app.use("/leaderboard", leaderboardRouter);
+  app.use("/auth", requireDatabase, authRouter);
+  app.use("/leaderboard", requireDatabase, leaderboardRouter);
 
   const clientDistCandidates = [
     path.resolve(process.cwd(), "client/dist"),
