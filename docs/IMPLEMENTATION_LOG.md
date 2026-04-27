@@ -49,10 +49,12 @@
 
 ## Latest Deployment
 
-- Cleanup commit pushed: `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f`.
-- Render deploy: `dep-d7noct4m0tmc73baa0lg`.
+- Security fix commit pushed: `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3`.
+- Render deploy: `dep-d7nu8sgpqo0s73812b6g`.
 - Deploy status: `live`.
 - Live URL: `https://pokemon-battle-ffwr.onrender.com`.
 - Live health: `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
 - Live route checks: `/` and `/leaderboard` returned HTTP 200 HTML; `/api/agent-workflow` returned HTTP 404.
+- Live leaderboard API filtered out forged high-score rows.
+- Live forged score POST with arbitrary score fields returned HTTP `400`.
 - Live Playwright flow passed for dashboard, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display with no console warnings or errors.

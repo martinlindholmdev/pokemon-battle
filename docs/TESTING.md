@@ -56,13 +56,15 @@ Screenshots:
 
 ## Production Verification
 
-Render deploy `dep-d7noct4m0tmc73baa0lg` from commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` reached `live`.
+Render deploy `dep-d7nu8sgpqo0s73812b6g` from commit `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3` reached `live`.
 
 Verified live:
 
 - `GET https://pokemon-battle-ffwr.onrender.com/api/health`: `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
 - `GET /`: HTTP 200 HTML.
-- `GET /leaderboard`: HTTP 200 HTML.
+- `GET /leaderboard` with `Accept: text/html`: HTTP 200 HTML.
+- `GET /api/leaderboard`: returned 25 public rows and did not include forged high-score rows such as `999999`, `Hacked!`, or `The System`.
+- Forged `POST /api/leaderboard` body with a valid JWT and arbitrary `score/wins/team/opponent` fields returned HTTP `400`.
 - `GET /api/agent-workflow`: HTTP 404, confirming the deleted workflow API is no longer exposed.
 - Playwright browser flow passed for dashboard load, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display.
 - Browser console: no warnings or errors during the live verification script.

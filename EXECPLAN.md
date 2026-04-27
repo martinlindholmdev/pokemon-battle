@@ -32,8 +32,10 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - [x] Closed the leaderboard client-trust gap with signed battle tokens and server-side score recomputation.
 - [x] Removed email from newly issued browser auth payloads.
 - [x] Re-ran local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, and verified battle token replay.
-- [ ] Commit and push final verification-doc updates.
-- [ ] Let Render deploy the final docs commit and re-check live health.
+- [x] Committed and pushed security fix commit `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3` to `main`.
+- [x] Render deployed `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3` as `dep-d7nu8sgpqo0s73812b6g`.
+- [x] Verified live `/api/health`, `/leaderboard`, filtered `/api/leaderboard`, and old forged score rejection.
+- [ ] Commit and push final verification-doc updates for the security deployment.
 
 ## Surprises & Discoveries
 
@@ -210,4 +212,4 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 
 ## Outcomes & Retrospective
 
-Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, and verified battle token replay passed. Final commit, push, Render deploy, and live re-verification are next.
+Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, verified battle token replay, and browser flow passed. Render deploy `dep-d7nu8sgpqo0s73812b6g` is live and live verification passed for health, `/leaderboard`, filtered leaderboard rows, and old forged score rejection.
