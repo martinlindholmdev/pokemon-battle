@@ -37,6 +37,8 @@ The visible proof of completion is:
 - [x] (2026-04-27) Committed and pushed implementation commit `d3e1c70637a5b74080f979ace630b76360d75f57` to `main`.
 - [x] (2026-04-27) Deployed Render service `pokemon-battle` at `https://pokemon-battle-ffwr.onrender.com`.
 - [x] (2026-04-27) Verified live `/api/health`, `/`, `/leaderboard`, register, protected roster, battle score posting, and leaderboard display.
+- [x] (2026-04-27) Created WBS presentation material for the post-deploy agent workflow and human steering/build-decision summary.
+- [x] (2026-04-27) Built a live `/agent-workflow` presentation page backed by read-only `/api/agent-workflow` data and the installed Vercel AI SDK package.
 
 ## Surprises & Discoveries
 
@@ -620,3 +622,5 @@ Subagents and automations are not required for this implementation. Do not rely 
 Plan-review update (2026-04-27): The plan is realistic only with the execution-control and deployment clarifications above. The implementation agent must update this section when the app is built, if a handoff is needed, and after deployment is attempted.
 
 Implementation outcome (2026-04-27): The app was implemented, locally verified, committed, pushed, deployed to Render, and live verified. The final live service is `https://pokemon-battle-ffwr.onrender.com`; final verified deploy is `dep-d7nkn70k1i2s738321bg` from commit `286bee5e0d4e9f3b4f8f373c34934ab8812ccf08`. The user should remove or tighten the temporary Atlas `0.0.0.0/0` access rule now that verification is complete.
+
+Presentation material outcome (2026-04-27): Added `docs/WBS_AGENT_COLLAB_PRESENTATION.md` and `docs/POST_DEPLOY_VERCEL_AI_SDK_WORKFLOW.md`. The presentation summarizes the product, architecture, implementation/deployment workflow, production failures, and 25 actual shared build decisions extracted from the private steering notes. A live workflow page was then added at `/agent-workflow`, backed by read-only `/api/agent-workflow` data and the installed Vercel AI SDK package in the server workspace. Pokemon app behavior remains isolated from this presentation surface.

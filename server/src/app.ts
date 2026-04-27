@@ -7,6 +7,7 @@ import { authRouter } from "./routes/auth.js";
 import { leaderboardRouter } from "./routes/leaderboard.js";
 import { healthRouter } from "./routes/health.js";
 import { aiRouter } from "./routes/ai.js";
+import { agentWorkflowRouter } from "./routes/agentWorkflow.js";
 import { errorHandler } from "./middleware/error.js";
 import { requireDatabase } from "./middleware/database.js";
 
@@ -27,6 +28,7 @@ export function createApp() {
   app.use("/api/auth", requireDatabase, authRouter);
   app.use("/api/leaderboard", requireDatabase, leaderboardRouter);
   app.use("/api/ai", requireDatabase, aiRouter);
+  app.use("/api/agent-workflow", agentWorkflowRouter);
 
   app.use("/auth", requireDatabase, authRouter);
   app.use("/leaderboard", requireDatabase, leaderboardRouter);

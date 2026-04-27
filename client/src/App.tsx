@@ -3,6 +3,7 @@ import { AuthProvider } from "./auth/AuthContext";
 import { ProtectedRoute } from "./auth/ProtectedRoute";
 import { Layout } from "./components/Layout";
 import { AuthPage } from "./pages/AuthPage";
+import { AgentWorkflowPage } from "./pages/AgentWorkflowPage";
 import { BattlePage } from "./pages/BattlePage";
 import { HomePage } from "./pages/HomePage";
 import { LeaderboardPage } from "./pages/LeaderboardPage";
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       { path: "pokemon/:id", element: <PokemonDetailPage /> },
       { path: "leaderboard", element: <LeaderboardPage /> },
       { path: "playbook", element: <PlaybookPage /> },
+      { path: "agent-workflow", element: <AgentWorkflowPage /> },
       { path: "login", element: <AuthPage mode="login" /> },
       { path: "register", element: <AuthPage mode="register" /> },
       {

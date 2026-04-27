@@ -40,3 +40,5 @@
 - Pushed interactive arena commit `42722bb3153c38147f4ed6933eec9c4db67ffeca`; Render deploy `dep-d7nmgpek1jcs739ldcsg` reached live.
 - Verified live `/api/health`, root page, and full Playwright flow through the move-based arena and leaderboard row.
 - Cleaned up the battle arena after visual review: active battle now hides the setup cards, uses a smaller arena heading, fixes generic sprite sizing so setup previews do not crop, and keeps the move controls/log in the active arena only.
+- Added a live post-deploy agent workflow surface: installed the Vercel AI SDK package `ai` in the server workspace, added read-only `/api/agent-workflow`, added `/agent-workflow` in the React app, and kept Pokemon app behavior isolated.
+- Verified workflow addition locally with `npm run typecheck`, `npm run lint`, `npm run build`, `npm audit`, local `/api/health`, local `/api/agent-workflow`, and local `/agent-workflow` returning HTTP 200.

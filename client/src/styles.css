@@ -752,6 +752,203 @@ meter {
   background: var(--yellow);
 }
 
+.workflow-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.workflow-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 390px);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.workflow-hero h1,
+.workflow-detail h2,
+.workflow-bottom h2 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.workflow-hero h1 {
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 0.95;
+  text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.35);
+}
+
+.workflow-hero p {
+  max-width: 74ch;
+  font-weight: 900;
+}
+
+.workflow-metrics {
+  border: 5px solid var(--ink);
+  background: var(--red);
+  color: #fff7d1;
+  box-shadow: 7px 7px 0 var(--shadow);
+  padding: 1rem;
+  display: grid;
+  gap: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.workflow-metrics span {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.workflow-metrics strong {
+  border: 3px solid var(--ink);
+  background: #fff7d1;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  min-height: 54px;
+  font-size: 1.7rem;
+}
+
+.workflow-sdk-strip {
+  border: 4px solid var(--ink);
+  background: #fff0b8;
+  box-shadow: 5px 5px 0 var(--shadow);
+  padding: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.workflow-sdk-strip div,
+.workflow-sdk-strip span {
+  border: 3px solid var(--ink);
+  background: rgba(255, 255, 255, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.6rem;
+}
+
+.workflow-sdk-strip code,
+.contract-box code,
+.evidence-item code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.workflow-layout {
+  display: grid;
+  grid-template-columns: minmax(250px, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.workflow-map {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.workflow-node {
+  width: 100%;
+  min-height: 72px;
+  justify-content: flex-start;
+  text-align: left;
+  background: #fff0b8;
+  text-transform: none;
+}
+
+.workflow-node.active {
+  background: var(--yellow);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+
+.workflow-node small,
+.workflow-node strong {
+  display: block;
+}
+
+.workflow-node small {
+  color: #4e5c3d;
+  text-transform: uppercase;
+}
+
+.node-status {
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--ink);
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+}
+
+.node-status.passed {
+  background: var(--green);
+}
+
+.node-status.manual {
+  background: var(--yellow);
+}
+
+.workflow-detail {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.workflow-detail__title {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.evidence-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.evidence-item {
+  border: 3px solid var(--ink);
+  background: rgba(255, 255, 255, 0.38);
+  padding: 0.65rem;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: start;
+}
+
+.evidence-item strong,
+.evidence-item code,
+.evidence-item a {
+  display: block;
+}
+
+.workflow-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 1rem;
+}
+
+.decision-list {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 1.4rem;
+  font-weight: 900;
+}
+
+.contract-box {
+  border: 3px solid var(--ink);
+  background: rgba(255, 255, 255, 0.38);
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 900;
+}
+
 .skeleton {
   min-height: 280px;
   border: 4px solid var(--ink);
@@ -827,7 +1024,10 @@ meter {
   .battle-grid,
   .battle-arena,
   .battle-setup,
-  .pokedex-toolbar {
+  .pokedex-toolbar,
+  .workflow-hero,
+  .workflow-layout,
+  .workflow-bottom {
     grid-template-columns: 1fr;
   }
 
