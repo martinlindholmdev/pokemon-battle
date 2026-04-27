@@ -21,7 +21,6 @@ const router = createBrowserRouter([
       { path: "pokemon/:id", element: <PokemonDetailPage /> },
       { path: "leaderboard", element: <LeaderboardPage /> },
       { path: "playbook", element: <PlaybookPage /> },
-      { path: "agent-workflow", element: <AgentWorkflowPage /> },
       { path: "login", element: <AuthPage mode="login" /> },
       { path: "register", element: <AuthPage mode="register" /> },
       {

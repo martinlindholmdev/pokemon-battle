@@ -90,14 +90,12 @@ export function HomePage() {
           <span>{roster.length === 0 ? "Add at least one Pokemon." : roster.length < 6 ? "Add more or go battle." : "Roster full. Go battle."}</span>
         </div>
       </div>
-      <div className="roster-counter" aria-live="polite">
-        <strong>{roster.length}/6</strong>
-        <span>Pokemon in roster</span>
-      </div>
       <div className="status-strip">
         <span>{pokemon.length} Pokemon indexed</span>
         <span>{filteredPokemon.length} shown</span>
-        <span>{roster.length}/6 selected</span>
+        <span className="roster-counter" aria-live="polite">
+          <strong>{roster.length}/6</strong> roster
+        </span>
         <span>{query ? "Search is showing every match" : "Load more to browse the full index"}</span>
       </div>
       {message && <p className={status === "error" ? "error" : "notice"}>{message}</p>}

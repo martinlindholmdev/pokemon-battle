@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { BookOpen, Bot, Dumbbell, Home, LogOut, Shield, Trophy, UserPlus } from "lucide-react";
+import { BookOpen, Dumbbell, Home, LogOut, Shield, Trophy, UserPlus } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
 import { getRoster, rosterChangedEvent } from "../auth/roster";
 import { useEffect, useState } from "react";
@@ -47,9 +47,6 @@ export function Layout() {
           </NavLink>
           <NavLink to="/playbook">
             <BookOpen size={18} /> Rules
-          </NavLink>
-          <NavLink to="/agent-workflow">
-            <Bot size={18} /> Workflow
           </NavLink>
           {!user && (
             <NavLink to="/register">
