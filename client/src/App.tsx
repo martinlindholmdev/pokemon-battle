@@ -12,6 +12,7 @@ import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 import { RosterPage } from "./pages/RosterPage";
 
 const router = createBrowserRouter([
+  { path: "/workflow", element: <AgentWorkflowPage /> },
   {
     path: "/",
     element: <Layout />,

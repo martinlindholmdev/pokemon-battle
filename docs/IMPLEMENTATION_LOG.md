@@ -42,3 +42,4 @@
 - Cleaned up the battle arena after visual review: active battle now hides the setup cards, uses a smaller arena heading, fixes generic sprite sizing so setup previews do not crop, and keeps the move controls/log in the active arena only.
 - Added a live post-deploy agent workflow surface: installed the Vercel AI SDK package `ai` in the server workspace, added read-only `/api/agent-workflow`, added `/agent-workflow` in the React app, and kept Pokemon app behavior isolated.
 - Verified workflow addition locally with `npm run typecheck`, `npm run lint`, `npm run build`, `npm audit`, local `/api/health`, local `/api/agent-workflow`, and local `/agent-workflow` returning HTTP 200.
+- Corrected the workflow experience to be independent from the Pokemon app shell by adding a standalone `/workflow` route with a full-screen Vercel-style workflow canvas, while keeping `/agent-workflow` available inside the app navigation.

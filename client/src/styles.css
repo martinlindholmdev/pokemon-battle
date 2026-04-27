@@ -757,6 +757,70 @@ meter {
   gap: 1rem;
 }
 
+.workflow-standalone {
+  min-height: 100vh;
+  padding: 1rem;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    radial-gradient(circle at 15% 10%, rgba(246, 198, 74, 0.38), transparent 22rem),
+    linear-gradient(135deg, #252525, #3a3a3a 55%, #202020);
+  background-size: 18px 18px, 18px 18px, auto, auto;
+}
+
+.workflow-standalone .workflow-page {
+  width: min(1280px, 100%);
+  margin: 0 auto;
+  border: 6px solid var(--ink);
+  background:
+    linear-gradient(rgba(28, 36, 23, 0.08) 50%, rgba(28, 36, 23, 0.02) 50%),
+    var(--screen);
+  background-size: 100% 5px, auto;
+  box-shadow: inset 0 0 0 8px var(--screen-dark), 10px 10px 0 var(--shadow);
+  padding: 1.25rem;
+}
+
+.workflow-topbar {
+  width: min(1280px, 100%);
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.workflow-topbar a {
+  min-height: 44px;
+  border: 3px solid var(--ink);
+  background: var(--cream);
+  box-shadow: 4px 4px 0 var(--shadow);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.65rem 0.85rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.workflow-cover {
+  border: 5px solid var(--ink);
+  background: var(--yellow);
+  box-shadow: 7px 7px 0 var(--shadow);
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.workflow-cover h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(3rem, 10vw, 7.5rem);
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.workflow-cover p:last-child {
+  max-width: 72ch;
+  font-weight: 900;
+}
+
 .workflow-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 390px);
@@ -841,6 +905,56 @@ meter {
   word-break: break-word;
 }
 
+.workflow-canvas {
+  border: 5px solid var(--ink);
+  background:
+    linear-gradient(90deg, rgba(28, 36, 23, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(28, 36, 23, 0.1) 1px, transparent 1px),
+    #e8f1a5;
+  background-size: 28px 28px;
+  box-shadow: 7px 7px 0 var(--shadow);
+  padding: 1rem;
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.canvas-step {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+.canvas-node {
+  width: 210px;
+  min-height: 134px;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.45rem;
+  text-align: left;
+  background: #fff0b8;
+  text-transform: none;
+}
+
+.canvas-node.active {
+  background: var(--yellow);
+}
+
+.canvas-node small {
+  color: #4e5c3d;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.canvas-edge {
+  flex: 0 0 auto;
+  color: var(--ink);
+}
+
 .workflow-layout {
   display: grid;
   grid-template-columns: minmax(250px, 0.9fr) minmax(0, 1.1fr);
@@ -851,6 +965,12 @@ meter {
 .workflow-map {
   display: grid;
   gap: 0.65rem;
+}
+
+.workflow-map.compact {
+  max-height: 620px;
+  overflow: auto;
+  padding-right: 0.25rem;
 }
 
 .workflow-node {
@@ -1063,5 +1183,18 @@ meter {
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .workflow-standalone {
+    padding: 0.55rem;
+  }
+
+  .workflow-topbar {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .workflow-cover h1 {
+    font-size: 3rem;
   }
 }

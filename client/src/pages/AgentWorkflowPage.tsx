@@ -1,5 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
-import { Activity, AlertTriangle, Bot, CheckCircle2, FileText, GitBranch, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  Activity,
+  AlertTriangle,
+  ArrowRight,
+  Bot,
+  CheckCircle2,
+  ExternalLink,
+  FileText,
+  GitBranch,
+  Home,
+  ShieldCheck,
+  Sparkles
+} from "lucide-react";
 
 interface WorkflowNode {
   id: string;
@@ -81,8 +93,27 @@ export function AgentWorkflowPage() {
   );
 
   return (
-    <section className="workflow-page">
-      <div className="workflow-hero">
+    <main className="workflow-standalone">
+      <nav className="workflow-topbar" aria-label="Workflow presentation navigation">
+        <a href="/">
+          <Home size={18} /> Pokemon app
+        </a>
+        <a href="/api/agent-workflow" rel="noreferrer" target="_blank">
+          <ExternalLink size={18} /> Workflow API
+        </a>
+      </nav>
+
+      <section className="workflow-page">
+        <div className="workflow-cover">
+          <p className="eyebrow">Independent Vercel AI SDK workflow</p>
+          <h1>Agent Build Pipeline</h1>
+          <p>
+            A standalone workflow view for presenting how the Pokemon project moved from human steering to agent
+            execution, evidence gates, production recovery, and live verification.
+          </p>
+        </div>
+
+        <div className="workflow-hero">
         <div>
           <p className="eyebrow">Post-deploy agent workflow</p>
           <h1>{workflow.title}</h1>
@@ -122,8 +153,27 @@ export function AgentWorkflowPage() {
         ))}
       </div>
 
+      <div className="workflow-canvas" aria-label="Vercel-style workflow canvas">
+        {workflow.nodes.map((node, index) => (
+          <div className="canvas-step" key={node.id}>
+            <button
+              className={node.id === activeNode?.id ? "canvas-node active" : "canvas-node"}
+              onClick={() => setActiveId(node.id)}
+              type="button"
+            >
+              <span className={node.status === "passed" ? "node-status passed" : "node-status manual"}>
+                {node.status === "passed" ? <CheckCircle2 size={18} /> : <AlertTriangle size={18} />}
+              </span>
+              <small>Step {index + 1}</small>
+              <strong>{node.label}</strong>
+            </button>
+            {index < workflow.nodes.length - 1 && <ArrowRight className="canvas-edge" size={28} />}
+          </div>
+        ))}
+      </div>
+
       <div className="workflow-layout">
-        <div className="workflow-map" aria-label="Workflow nodes">
+        <div className="workflow-map compact" aria-label="Workflow node list">
           {workflow.nodes.map((node, index) => (
             <button
               className={node.id === activeNode?.id ? "workflow-node active" : "workflow-node"}
@@ -213,6 +263,7 @@ export function AgentWorkflowPage() {
           </p>
         </section>
       </div>
-    </section>
+      </section>
+    </main>
   );
 }
