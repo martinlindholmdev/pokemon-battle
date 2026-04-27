@@ -30,11 +30,13 @@ Build a roster, battle a random opponent, earn points, and place a score on the 
 - The player chooses one Pokemon from the roster.
 - The opponent is randomly selected from the first 151 Pokemon.
 - Each battle runs for up to 8 turns.
-- Each turn:
-  - the player's Pokemon attacks first,
-  - the opponent counters if it still has HP.
+- Each turn, choose one move:
+  - Strike: full damage.
+  - Guard: lower damage, but the opponent counter is reduced.
+  - Focus: no immediate damage, but the next Strike is stronger.
+- The opponent counters after Strike or Guard if it still has HP.
 - Damage is based on attack and speed.
-- The winner is decided by remaining HP, with total battle power used as a tiebreaker.
+- The winner is decided by HP, with total battle power used as a tiebreaker if the battle reaches the turn limit.
 
 ## Battle Power
 

@@ -15,10 +15,10 @@ export function PlaybookPage() {
       </div>
       <div className="detail-layout">
         <article className="panel">
-          <h2>Trainer steps</h2>
+          <h2>Trainer journey</h2>
           <ol className="battle-log">
             <li>Create or log into a trainer account.</li>
-            <li>Scan the Pokedex dashboard and add Pokemon with the plus button.</li>
+            <li>Search or scan the first-generation Pokedex and add Pokemon with the plus button.</li>
             <li>Open Roster to manage up to six Pokemon.</li>
             <li>Open Battle, choose one fighter, and start the match.</li>
             <li>Check the Leaderboard after your score posts.</li>
@@ -34,6 +34,15 @@ export function PlaybookPage() {
             <span>Loss: half battle power</span>
           </div>
         </article>
+      </div>
+      <div className="panel">
+        <h2>What makes a strong pick?</h2>
+        <div className="status-strip">
+          <span>Attack improves hit damage</span>
+          <span>Speed improves hit damage</span>
+          <span>HP helps score bonus</span>
+          <span>Defense raises battle power</span>
+        </div>
       </div>
     </section>
   );

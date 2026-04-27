@@ -1,9 +1,22 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { BookOpen, Dumbbell, Home, LogOut, Shield, Trophy, UserPlus } from "lucide-react";
 import { useAuth } from "../auth/AuthContext";
+import { getRoster, rosterChangedEvent } from "../auth/roster";
+import { useEffect, useState } from "react";
 
 export function Layout() {
   const { user, logout } = useAuth();
+  const [roster, setRoster] = useState(() => getRoster());
+
+  useEffect(() => {
+    const syncRoster = () => setRoster(getRoster());
+    window.addEventListener("storage", syncRoster);
+    window.addEventListener(rosterChangedEvent, syncRoster);
+    return () => {
+      window.removeEventListener("storage", syncRoster);
+      window.removeEventListener(rosterChangedEvent, syncRoster);
+    };
+  }, []);
 
   return (
     <div className="app-shell">
@@ -56,6 +69,17 @@ export function Layout() {
               <NavLink to="/login">Log in to score</NavLink>
             </>
           )}
+        </div>
+        <div className="roster-dock">
+          <strong>Roster slots</strong>
+          <div className="slot-grid">
+            {Array.from({ length: 6 }, (_, index) => (
+              <span className={roster[index] ? "slot filled" : "slot"} key={index}>
+                {roster[index] ? roster[index].name.slice(0, 3) : index + 1}
+              </span>
+            ))}
+          </div>
+          <small>{roster.length < 1 ? "Add one Pokemon to unlock Battle." : `${roster.length}/6 ready. Battle is unlocked.`}</small>
         </div>
       </aside>
       <main className="content">

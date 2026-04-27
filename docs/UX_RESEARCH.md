@@ -24,6 +24,10 @@ Date: 2026-04-27
   - License/status: MIT. Reviewed popularity among React Pokedex examples and noted that scan/browse/detail flow matters more than a landing-page composition. No source code copied.
 - matheusmhq/pokedex-react-js: https://github.com/matheusmhq/pokedex-react-js
   - License/status: MIT. Reviewed type-color tokens, animated Pokemon presentation, and compact card structure. No source code copied.
+- Pokemon Showdown: https://github.com/matlink/Pokemon-Showdown
+  - License/status: MIT noted during earlier review. Used as battle UX reference for the core pattern of two active combatants, HP bars, explicit turn log, and action choices. No source code copied.
+- DeusMalsith/pokemon-battle-system: https://github.com/DeusMalsith/pokemon-battle-system
+  - License/status not relied on for copying. Reviewed as a lightweight browser battle-system reference for arena composition and move-button expectations. No source code copied.
 
 ## Local Design Decisions
 
@@ -36,6 +40,7 @@ Date: 2026-04-27
 - Empty, loading, error, auth, and leaderboard states are explicit.
 - Mobile navigation stacks cleanly; desktop uses a persistent side rail for repeated app use.
 - Add in-app rules/playbook content so players understand the loop without reading repo docs.
+- Add a real turn-by-turn arena instead of a one-click simulation: Start Battle loads an opponent, then Strike, Guard, and Focus moves advance HP bars and the battle log until a score posts.
 
 ## Code Adaptation
 

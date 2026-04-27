@@ -1,6 +1,7 @@
 import type { PokemonSummary } from "../types/pokemon";
 
 const rosterKey = "pokemon-battle-roster";
+export const rosterChangedEvent = "pokemon-battle-roster-changed";
 
 export function getRoster(): PokemonSummary[] {
   try {
@@ -14,6 +15,7 @@ export function getRoster(): PokemonSummary[] {
 
 export function saveRoster(roster: PokemonSummary[]) {
   localStorage.setItem(rosterKey, JSON.stringify(roster.slice(0, 6)));
+  window.dispatchEvent(new Event(rosterChangedEvent));
 }
 
 export function addToRoster(pokemon: PokemonSummary) {

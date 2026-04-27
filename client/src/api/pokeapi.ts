@@ -13,8 +13,8 @@ function idFromUrl(url: string) {
   return match ? Number(match[1]) : 0;
 }
 
-export async function fetchPokemonList(limit = 24, offset = 0): Promise<PokemonSummary[]> {
-  if (listCache && offset === 0 && limit === 24) {
+export async function fetchPokemonList(limit = 151, offset = 0): Promise<PokemonSummary[]> {
+  if (listCache && offset === 0 && limit === 151) {
     return listCache;
   }
 
@@ -33,7 +33,7 @@ export async function fetchPokemonList(limit = 24, offset = 0): Promise<PokemonS
     };
   });
 
-  if (offset === 0 && limit === 24) {
+  if (offset === 0 && limit === 151) {
     listCache = list;
   }
 

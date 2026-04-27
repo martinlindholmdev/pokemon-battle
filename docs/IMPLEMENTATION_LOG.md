@@ -35,3 +35,5 @@
 - Verified the redesign locally with `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright browser flow. Local screenshots were refreshed.
 - Pushed redesign commit `d823c4b866e1730ee4adc99b41277039f0ef0029`; Render deploy `dep-d7nm5tojs32c73d4mdpg` reached live.
 - Verified live `/api/health`, `/`, `/playbook`, and full Playwright auth/roster/battle/leaderboard flow after the redesign. Live screenshots were refreshed.
+- Added UX-flow improvements: first-generation Pokedex search, visible selected roster state, sidebar roster slots, next-step guidance, stronger playbook guidance, and a turn-by-turn interactive battle arena with Strike, Guard, Focus, HP updates, and rolling battle log.
+- Tightened Playwright verification so leaderboard success requires an actual `.leader-row`, not just the signed-in trainer name in the sidebar.

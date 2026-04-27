@@ -4,13 +4,15 @@ import type { PokemonSummary } from "../types/pokemon";
 
 export function PokemonCard({
   pokemon,
-  onAdd
+  onAdd,
+  selected = false
 }: {
   pokemon: PokemonSummary;
   onAdd: (pokemon: PokemonSummary) => void;
+  selected?: boolean;
 }) {
   return (
-    <article className="pokemon-card">
+    <article className={selected ? "pokemon-card selected" : "pokemon-card"}>
       <Link to={`/pokemon/${pokemon.id}`} className="pokemon-card__main">
         <header>
           <span className="pokemon-number">#{String(pokemon.id).padStart(3, "0")}</span>
@@ -23,7 +25,7 @@ export function PokemonCard({
         <span className="card-link"><Search size={14} /> inspect</span>
       </Link>
       <button className="icon-button" onClick={() => onAdd(pokemon)} title="Add to roster" type="button">
-        <Plus size={18} />
+        {selected ? "OK" : <Plus size={18} />}
       </button>
     </article>
   );
