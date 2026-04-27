@@ -58,3 +58,4 @@ Screenshots:
 - Retro frontend redesign live verification: Render deploy `dep-d7nm5tojs32c73d4mdpg` reached live; `/api/health`, `/`, `/playbook`, and the full Playwright auth/roster/battle/leaderboard flow passed.
 - Interactive arena update local verification: `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright flow passed. The browser test now plays arena turns with Strike and waits for a real leaderboard row after score posting.
 - Interactive arena live verification: Render deploy `dep-d7nmgpek1jcs739ldcsg` reached live; `/api/health` returned ok and Playwright completed register, roster add, Start Battle, Strike turns, score post, and leaderboard row verification.
+- Battle arena cleanup local verification: `npm run typecheck`, `npm run lint`, `npm run build`, Playwright flow, and a dedicated battle arena screenshot passed.

@@ -39,3 +39,4 @@
 - Tightened Playwright verification so leaderboard success requires an actual `.leader-row`, not just the signed-in trainer name in the sidebar.
 - Pushed interactive arena commit `42722bb3153c38147f4ed6933eec9c4db67ffeca`; Render deploy `dep-d7nmgpek1jcs739ldcsg` reached live.
 - Verified live `/api/health`, root page, and full Playwright flow through the move-based arena and leaderboard row.
+- Cleaned up the battle arena after visual review: active battle now hides the setup cards, uses a smaller arena heading, fixes generic sprite sizing so setup previews do not crop, and keeps the move controls/log in the active arena only.

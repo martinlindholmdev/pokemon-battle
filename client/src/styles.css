@@ -265,7 +265,7 @@ nav a {
 .page-heading h1,
 .auth-layout h1 {
   margin: 0;
-  font-size: clamp(2rem, 5vw, 4.6rem);
+  font-size: clamp(2rem, 4vw, 4rem);
   line-height: 0.95;
   text-transform: uppercase;
   text-shadow: 4px 4px 0 rgba(255, 255, 255, 0.35);
@@ -392,6 +392,7 @@ nav a {
   background-size: 100% 6px;
 }
 
+.sprite-stage img,
 .pokemon-card img,
 .fighter img,
 .pokemon-portrait img {
@@ -502,7 +503,7 @@ select {
 
 .battle-arena {
   display: grid;
-  grid-template-columns: minmax(220px, 0.9fr) minmax(320px, 1.25fr) minmax(220px, 0.9fr);
+  grid-template-columns: minmax(240px, 0.85fr) minmax(340px, 1.25fr) minmax(240px, 0.85fr);
   gap: 1rem;
   align-items: stretch;
 }
@@ -514,6 +515,7 @@ select {
   justify-items: center;
   text-align: center;
   gap: 0.8rem;
+  align-content: center;
 }
 
 .empty-state {
@@ -636,6 +638,8 @@ meter {
 .result-panel {
   position: relative;
   overflow: hidden;
+  display: grid;
+  align-content: start;
 }
 
 .versus {
@@ -659,6 +663,8 @@ meter {
   padding-left: 1.25rem;
   text-align: left;
   font-weight: 900;
+  max-height: 270px;
+  overflow: auto;
 }
 
 .battle-log li {

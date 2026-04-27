@@ -160,7 +160,7 @@ export function BattlePage() {
       <div className="page-heading">
         <div>
           <p className="eyebrow">Battle terminal</p>
-          <h1>Start the match</h1>
+          <h1>{arena ? "Battle arena" : "Start the match"}</h1>
         </div>
         <div className="battle-controls">
           <select value={selected} onChange={(event) => setSelected(event.target.value)}>
@@ -169,38 +169,9 @@ export function BattlePage() {
             ))}
           </select>
           <button className="primary" onClick={startBattle} disabled={loading} type="button">
-            {loading ? "Loading arena..." : arena ? "New opponent" : "Start battle"}
+            {loading ? "Loading arena..." : arena ? "Start new battle" : "Start battle"}
           </button>
         </div>
-      </div>
-      <div className="status-strip">
-        <span>Pick one roster Pokemon</span>
-        <span>Opponent is random</span>
-        <span>Score posts after the match</span>
-      </div>
-      <div className="battle-setup">
-        <article className="panel">
-          <p className="eyebrow">1. Choose fighter</p>
-          <h2>{selectedPokemon?.name ?? "No Pokemon selected"}</h2>
-          {selectedPokemon && (
-            <div className="sprite-stage">
-              <img src={selectedPokemon.image} alt={selectedPokemon.name} />
-            </div>
-          )}
-        </article>
-        <article className="panel">
-          <p className="eyebrow">2. Rule check</p>
-          <div className="status-strip vertical">
-            <span>Battle lasts up to 8 turns</span>
-            <span>Attack and speed drive damage</span>
-            <span>Remaining HP boosts winning score</span>
-          </div>
-        </article>
-        <article className="panel">
-          <p className="eyebrow">3. Result</p>
-          <h2>{arena?.outcome ? `${arena.outcome}: ${arena.score} pts` : "Waiting for battle"}</h2>
-          <p>After the match, your score is sent to the leaderboard automatically.</p>
-        </article>
       </div>
       {notice && <p className="notice">{notice}</p>}
       {arena ? (
@@ -214,7 +185,7 @@ export function BattlePage() {
           </div>
           <div className="panel result-panel arena-controls">
             <p className="eyebrow">Turn {Math.min(arena.turn, 8)} / 8</p>
-            <h2>{arena.outcome ? `${arena.score} points` : "Choose move"}</h2>
+            <h2>{arena.outcome ? `${arena.outcome}: ${arena.score} pts` : "Choose move"}</h2>
             <div className="versus">VS</div>
             <div className="move-grid">
               <button type="button" onClick={() => void performMove("strike")} disabled={Boolean(arena.outcome)}>
@@ -241,9 +212,29 @@ export function BattlePage() {
           </div>
         </div>
       ) : (
-        <div className="panel empty-state">
-          <h2>Battle station ready</h2>
-          <p>Pick your lead Pokemon, press start, and the terminal will roll the full turn log.</p>
+        <div className="battle-setup">
+          <article className="panel">
+            <p className="eyebrow">1. Choose fighter</p>
+            <h2>{selectedPokemon?.name ?? "No Pokemon selected"}</h2>
+            {selectedPokemon && (
+              <div className="sprite-stage">
+                <img src={selectedPokemon.image} alt={selectedPokemon.name} />
+              </div>
+            )}
+          </article>
+          <article className="panel">
+            <p className="eyebrow">2. Read the rules</p>
+            <div className="status-strip vertical">
+              <span>Strike: full damage</span>
+              <span>Guard: reduce counter</span>
+              <span>Focus: charge next hit</span>
+            </div>
+          </article>
+          <article className="panel">
+            <p className="eyebrow">3. Start</p>
+            <h2>Ready</h2>
+            <p>Press Start Battle. The arena will replace this setup screen.</p>
+          </article>
         </div>
       )}
     </section>
