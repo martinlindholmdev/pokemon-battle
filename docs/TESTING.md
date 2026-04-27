@@ -1,6 +1,6 @@
 # Testing
 
-Date: 2026-04-27
+Date: 2026-04-28
 
 ## Automated Checks
 
@@ -12,12 +12,17 @@ Latest local cleanup pass:
 - `npm audit`: passed with 0 vulnerabilities.
 - Secret scan: no committed secret values found; only env names, placeholders, docs, and server env references.
 - Unsafe DOM/code scan: no `dangerouslySetInnerHTML`, `innerHTML`, `eval`, `new Function`, `document.write`, or `insertAdjacentHTML` matches in `client` or `server`.
+- Request trust-boundary scan: no remaining score/recap write accepts arbitrary client-submitted result fields.
 
 ## Local API Verification
 
-- Production server started on port `4000`, PID `28692`.
+- Production server started on port `4000`.
 - `GET http://localhost:4000/api/health`: returned `status: ok`, Mongo state `connected`, ping `true`.
 - Direct browser navigation to `http://localhost:4000/leaderboard` returned the React leaderboard page.
+- Forged score body with valid local JWT returned HTTP `400` validation failure.
+- `POST /api/battles/start` returned a signed battle token without printing token contents.
+- Server replay of an eight-move battle token produced a verified score result.
+- Old arbitrary AI recap request shape returned HTTP `400` validation failure.
 
 ## Browser Verification
 
@@ -30,8 +35,8 @@ Playwright Chromium verification passed locally after the UI cleanup:
 - Added a Pokemon to roster.
 - Started a battle from the selected lead Pokemon.
 - Played Strike turns until a win/loss result.
-- Score posted to leaderboard.
-- Leaderboard displayed the created trainer score.
+- Score posted through server-verified battle token replay.
+- Leaderboard displayed the created trainer score and hid forged high-score rows.
 - Removed `/workflow` route shows the not-found screen instead of the deleted workflow page.
 - No browser console warnings or errors were reported.
 

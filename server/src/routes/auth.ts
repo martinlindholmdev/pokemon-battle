@@ -26,10 +26,9 @@ const loginSchema = z.object({
   password: z.string().min(1).max(128)
 });
 
-function profile(user: { id: string; email: string; displayName: string }) {
+function profile(user: { id: string; displayName: string }) {
   return {
     id: user.id,
-    email: user.email,
     displayName: user.displayName
   };
 }

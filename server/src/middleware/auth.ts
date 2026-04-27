@@ -5,7 +5,6 @@ import { HttpError } from "../utils/httpError.js";
 
 export interface AuthUser {
   id: string;
-  email: string;
   displayName: string;
 }
 

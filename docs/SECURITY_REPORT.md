@@ -1,10 +1,10 @@
 # Security Report
 
-Date: 2026-04-27
+Date: 2026-04-28
 
 ## Executive Summary
 
-No critical or high-severity issues are open from the current local pass. The cleanup removed an unnecessary workflow/API surface, removed the unused AI SDK dependency, added a strict Helmet CSP, stopped leaderboard email exposure, and added rate limits to score and recap writes.
+No critical or high-severity issues are open from the current local pass. The app now rejects arbitrary client-submitted leaderboard scores: battles start with a server-signed token, and score creation recomputes the result from that token plus a bounded move list. The cleanup also removed unnecessary workflow/API surface, added a strict Helmet CSP, stopped leaderboard email exposure, and rate-limited score/recap writes.
 
 ## Critical Findings
 
@@ -23,6 +23,26 @@ None open.
    - Reason accepted: the WBS project brief required browser JWT persistence.
 
 ## Fixed In This Pass
+
+1. Closed the client-trusted leaderboard score gap.
+   - Location: `server/src/routes/battles.ts`, `server/src/services/battle.ts`, `server/src/routes/leaderboard.ts`, `server/src/models/Score.ts`.
+   - Impact: logged-in users could previously forge `score`, `wins`, `team`, and `opponent` in the `POST /api/leaderboard` body.
+   - Change: the server now issues a signed battle token, accepts only `battleToken` and up to eight validated moves for score posting, verifies the token belongs to the authenticated user, computes score/win/loss/team/opponent server-side, and caps new `Score` documents at server-verified bounds.
+
+2. Filtered unverifiable legacy leaderboard rows from public responses.
+   - Location: `server/src/routes/leaderboard.ts` and `server/src/services/battle.ts`.
+   - Change: `GET /api/leaderboard` only returns rows within the server-computable score range, with one win/loss result and first-generation Pokemon names.
+   - Note: existing forged rows were not deleted from the database.
+
+3. Restricted AI battle recap input to verified battles.
+   - Location: `server/src/routes/ai.ts`.
+   - Change: the recap route no longer accepts arbitrary player/opponent/score/turn text; it verifies the same signed battle token and move list before generating a recap.
+
+4. Removed email from newly issued JWT/profile payloads.
+   - Location: `server/src/routes/auth.ts`, `server/src/middleware/auth.ts`, `client/src/api/http.ts`.
+   - Change: new auth sessions store only `id` and `displayName` in the browser-side auth payload.
+
+## Previously Fixed
 
 1. Removed public email disclosure from leaderboard responses.
    - Location: `server/src/routes/leaderboard.ts:26-44`.
@@ -78,4 +98,5 @@ Result: no matches.
 
 - If Atlas still has temporary `0.0.0.0/0` access, remove or tighten it after deployment verification.
 - The optional WBS LLM endpoint is server-side and has a deterministic fallback, but it still depends on external availability when configured.
-- Battle simulation is game logic, not a security boundary.
+- JWT storage remains in `localStorage` by project requirement, so continued XSS prevention remains important.
+- The server verifies battle tokens and recomputes results, but the battle is still a simple game, not a fraud-resistant anti-cheat system.

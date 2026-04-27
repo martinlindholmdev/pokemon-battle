@@ -29,6 +29,9 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - [x] Committed and pushed cleanup commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` to `main`.
 - [x] Render deployed `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` as `dep-d7noct4m0tmc73baa0lg`.
 - [x] Verified live `/api/health`, `/`, `/leaderboard`, removed `/api/agent-workflow`, and a full browser flow.
+- [x] Closed the leaderboard client-trust gap with signed battle tokens and server-side score recomputation.
+- [x] Removed email from newly issued browser auth payloads.
+- [x] Re-ran local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, and verified battle token replay.
 - [ ] Commit and push final verification-doc updates.
 - [ ] Let Render deploy the final docs commit and re-check live health.
 
@@ -37,6 +40,7 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - The most-starred battle simulator repo is `smogon/pokemon-showdown`, but its main repository is the server/simulator, not the frontend.
 - The actual Pokemon Showdown client is AGPL-3.0, so its frontend code should not be copied into this app.
 - The old compatibility alias for `GET /leaderboard` conflicted with the React `/leaderboard` page on direct browser navigation. The server now serves the React page when the request accepts HTML and leaves JSON APIs under `/api/leaderboard`.
+- The live leaderboard contained forged rows because `POST /api/leaderboard` trusted authenticated client-submitted score fields. The app now hides unverifiable legacy rows from public responses without deleting database data.
 
 ## Decision Log
 
@@ -56,6 +60,10 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
   Rationale: The app needs an Express backend plus static React hosting.
   Date/Author: 2026-04-27 / project.
 
+- Decision: Make leaderboard score creation server-verified.
+  Rationale: Authenticated clients can forge browser-calculated results. Battle start now returns a signed, short-lived token bound to the user; score creation accepts only that token and a bounded move list, then recomputes score, outcome, team, and opponent on the server.
+  Date/Author: 2026-04-28 / Codex.
+
 ## Context and Orientation
 
 Repository root:
@@ -67,6 +75,7 @@ Important files:
 - `README.md`: GitHub-facing overview with screenshots.
 - `client/src`: React app.
 - `server/src`: Express API.
+- `server/src/services/battle.ts`: battle token verification, result replay, public leaderboard row filter.
 - `docs/ARCHITECTURE.md`: architecture and routes.
 - `docs/RUNBOOK.md`: local/deploy operations.
 - `docs/TESTING.md`: checks and verification notes.
@@ -114,8 +123,10 @@ Browser verification must cover:
 - `/leaderboard` loads the React page on direct navigation,
 - register/login,
 - roster add,
+- server-mediated battle start,
 - battle completion,
 - leaderboard row display,
+- forged `POST /api/leaderboard` body is rejected,
 - desktop/tablet/mobile screenshot check.
 
 ## Milestones
@@ -151,6 +162,7 @@ Acceptance:
 - no unsafe DOM/code execution sinks,
 - dependency audit is clean or documented,
 - public API responses do not expose unnecessary private data,
+- leaderboard writes do not trust client-submitted final score fields,
 - docs record residual risks.
 
 ### Milestone 4: Commit, Push, Deploy
@@ -198,4 +210,4 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 
 ## Outcomes & Retrospective
 
-Latest outcome (2026-04-27): cleanup, UI polish, security tightening, docs refresh, local verification, push, Render deploy, and live browser verification have been completed for commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f`. Final verification docs are being committed as the last repository update.
+Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, and verified battle token replay passed. Final commit, push, Render deploy, and live re-verification are next.

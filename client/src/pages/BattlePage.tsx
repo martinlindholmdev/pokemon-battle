@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getBattleRecap, postScore } from "../api/http";
-import { fetchPokemonDetail } from "../api/pokeapi";
+import { postScore, startBattleSession } from "../api/http";
+import type { BattleMove } from "../api/http";
 import { getRoster } from "../auth/roster";
 import { useAuth } from "../auth/AuthContext";
 import { HpBar } from "../components/HpBar";
 import type { PokemonDetail, PokemonSummary } from "../types/pokemon";
 
-type Move = "strike" | "guard" | "focus";
+type Move = BattleMove;
 
 interface ArenaState {
   player: PokemonDetail;
@@ -23,6 +23,8 @@ interface ArenaState {
   posted?: boolean;
   recap?: string;
   recapSource?: "ai" | "local";
+  battleToken: string;
+  moves: Move[];
 }
 
 function power(pokemon: PokemonDetail) {
@@ -52,22 +54,29 @@ export function BattlePage() {
 
   async function startBattle() {
     if (!selected) return;
+    if (!token) {
+      setNotice("Log in to start a verified battle.");
+      return;
+    }
+
     setLoading(true);
     setNotice("");
     try {
-      const [player, opponent] = await Promise.all([
-        fetchPokemonDetail(selected),
-        fetchPokemonDetail(Math.floor(Math.random() * 151) + 1)
-      ]);
+      const battle = await startBattleSession(token, {
+        playerId: Number(selected),
+        teamIds: roster.map((pokemon) => pokemon.id)
+      });
       setArena({
-        player,
-        opponent,
+        player: battle.player,
+        opponent: battle.opponent,
         playerHp: 100,
         opponentHp: 100,
         turn: 1,
         guard: false,
         focus: 0,
-        log: [`${player.name} entered the arena. ${opponent.name} appeared.`]
+        log: [`${battle.player.name} entered the arena. ${battle.opponent.name} appeared.`],
+        battleToken: battle.battleToken,
+        moves: []
       });
       setNotice("Arena ready. Choose a move.");
     } catch (error) {
@@ -93,27 +102,19 @@ export function BattlePage() {
     }
 
     try {
-      const recapPromise = getBattleRecap(token, {
-        player: next.player.name,
-        opponent: next.opponent.name,
-        result: outcome,
-        score,
-        turns: finished.log
-      }).catch(() => ({
-        recap: `${next.player.name} ${outcome === "win" ? "won" : "lost"} against ${next.opponent.name} and scored ${score} points.`,
-        source: "local" as const
-      }));
-
-      await postScore(token, {
-        score,
-        wins: outcome === "win" ? 1 : 0,
-        losses: outcome === "loss" ? 1 : 0,
-        team: roster.map((pokemon) => pokemon.name),
-        opponent: next.opponent.name
+      const posted = await postScore(token, {
+        battleToken: next.battleToken,
+        moves: next.moves
       });
-      const recap = await recapPromise;
-      setArena({ ...finished, posted: true, recap: recap.recap, recapSource: recap.source });
-      setNotice(recap.source === "ai" ? "Score posted. Coach recap generated." : "Score posted. Local coach recap shown.");
+      setArena({
+        ...finished,
+        outcome: posted.result.outcome,
+        score: posted.result.score,
+        posted: true,
+        recap: posted.recap.recap,
+        recapSource: posted.recap.source
+      });
+      setNotice(posted.recap.source === "ai" ? "Score posted. Coach recap generated." : "Score posted. Local coach recap shown.");
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Score could not be posted");
     }
@@ -122,6 +123,7 @@ export function BattlePage() {
   async function performMove(move: Move) {
     if (!arena || arena.outcome) return;
 
+    const moves = [...arena.moves, move];
     const playerDamage = moveDamage(arena.player, move, arena.focus);
     const nextOpponentHp = Math.max(0, arena.opponentHp - playerDamage);
     const log = [
@@ -132,7 +134,7 @@ export function BattlePage() {
     ];
 
     if (nextOpponentHp <= 0) {
-      await finishBattle({ ...arena, opponentHp: 0, log }, "win");
+      await finishBattle({ ...arena, opponentHp: 0, log, moves }, "win");
       return;
     }
 
@@ -148,7 +150,8 @@ export function BattlePage() {
       turn: arena.turn + 1,
       guard: move === "guard",
       focus: move === "focus" ? Math.min(3, arena.focus + 1) : 0,
-      log: counterLog
+      log: counterLog,
+      moves
     };
 
     if (nextPlayerHp <= 0 || next.turn > 8) {

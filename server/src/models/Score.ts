@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
+const maxServerVerifiedScore = 1200;
+
 export interface ScoreDocument extends mongoose.Document {
   userId: mongoose.Types.ObjectId;
   score: number;
@@ -21,25 +23,32 @@ const scoreSchema = new Schema<ScoreDocument>(
       type: Number,
       required: true,
       min: 0,
-      max: 999999
+      max: maxServerVerifiedScore
     },
     wins: {
       type: Number,
       default: 0,
-      min: 0
+      min: 0,
+      max: 1
     },
     losses: {
       type: Number,
       default: 0,
-      min: 0
+      min: 0,
+      max: 1
     },
     team: {
       type: [String],
-      default: []
+      default: [],
+      validate: {
+        validator: (value: string[]) => value.length >= 1 && value.length <= 6,
+        message: "Team must contain between one and six Pokemon"
+      }
     },
     opponent: {
       type: String,
-      default: ""
+      default: "",
+      maxlength: 40
     }
   },
   { timestamps: true }

@@ -14,6 +14,15 @@
   - deleted workflow presentation documents.
 - Refreshed README, architecture, testing, security, runbook, and UX research docs around the product rather than the build process.
 
+## 2026-04-28
+
+- Closed the leaderboard integrity gap where authenticated clients could submit arbitrary score fields.
+- Added server-mediated battle start with a signed battle token bound to the authenticated user.
+- Changed score posting to accept only `battleToken` and a bounded move list, then recompute score/wins/losses/team/opponent server-side.
+- Filtered public leaderboard reads to hide unverifiable legacy forged rows without deleting database data.
+- Restricted the AI recap route to the same verified battle submission shape.
+- Removed email from newly issued browser auth payloads.
+
 ## Latest Local Verification
 
 - `npm run typecheck`: passed.
@@ -22,8 +31,11 @@
 - `npm audit`: passed with 0 vulnerabilities.
 - Secret scan: no committed secret values found.
 - Unsafe DOM/code scan: no dangerous sink matches.
-- Local production server: `http://localhost:4000`, PID `28692`.
+- Local production server: `http://localhost:4000`.
 - Local `/api/health`: `status: ok`, Mongo state `connected`, ping `true`.
+- Forged leaderboard score body with a valid local JWT: rejected with HTTP `400`.
+- Verified battle start/replay: server issued a battle token and recomputed a bounded score.
+- Old arbitrary AI recap body: rejected with HTTP `400`.
 - Playwright browser flow: dashboard, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display all passed.
 - Browser console: no warnings or errors during the verification script.
 

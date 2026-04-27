@@ -1,8 +1,9 @@
+import type { PokemonDetail } from "../types/pokemon";
+
 export interface AuthPayload {
   token: string;
   user: {
     id: string;
-    email: string;
     displayName: string;
   };
 }
@@ -16,6 +17,34 @@ export interface ScoreEntry {
   team: string[];
   opponent: string;
   createdAt: string;
+}
+
+export type BattleMove = "strike" | "guard" | "focus";
+
+export interface BattleStart {
+  battleToken: string;
+  player: PokemonDetail;
+  opponent: PokemonDetail;
+  team: string[];
+}
+
+export interface VerifiedBattleResult {
+  outcome: "win" | "loss";
+  score: number;
+  wins: number;
+  losses: number;
+  team: string[];
+  opponent: string;
+  turns: string[];
+}
+
+export interface PostedBattle {
+  score: ScoreEntry;
+  result: VerifiedBattleResult;
+  recap: {
+    recap: string;
+    source: "ai" | "local";
+  };
 }
 
 async function request<T>(path: string, options: RequestInit = {}, token?: string | null): Promise<T> {
@@ -54,11 +83,19 @@ export function getLeaderboard() {
   return request<{ scores: ScoreEntry[] }>("/api/leaderboard");
 }
 
-export function postScore(
-  token: string,
-  input: { score: number; wins: number; losses: number; team: string[]; opponent: string }
-) {
-  return request<{ score: unknown }>(
+export function startBattleSession(token: string, input: { playerId: number; teamIds: number[] }) {
+  return request<BattleStart>(
+    "/api/battles/start",
+    {
+      method: "POST",
+      body: JSON.stringify(input)
+    },
+    token
+  );
+}
+
+export function postScore(token: string, input: { battleToken: string; moves: BattleMove[] }) {
+  return request<PostedBattle>(
     "/api/leaderboard",
     {
       method: "POST",
@@ -68,10 +105,7 @@ export function postScore(
   );
 }
 
-export function getBattleRecap(
-  token: string,
-  input: { player: string; opponent: string; result: "win" | "loss"; score: number; turns: string[] }
-) {
+export function getBattleRecap(token: string, input: { battleToken: string; moves: BattleMove[] }) {
   return request<{ recap: string; source: "ai" | "local" }>(
     "/api/ai/battle-recap",
     {

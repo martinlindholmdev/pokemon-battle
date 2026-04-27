@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import express from "express";
 import helmet from "helmet";
 import { authRouter } from "./routes/auth.js";
+import { battlesRouter } from "./routes/battles.js";
 import { leaderboardRouter } from "./routes/leaderboard.js";
 import { healthRouter } from "./routes/health.js";
 import { aiRouter } from "./routes/ai.js";
@@ -46,6 +47,7 @@ export function createApp() {
 
   app.use("/api/health", healthRouter);
   app.use("/api/auth", requireDatabase, authRouter);
+  app.use("/api/battles", requireDatabase, battlesRouter);
   app.use("/api/leaderboard", requireDatabase, leaderboardRouter);
   app.use("/api/ai", requireDatabase, aiRouter);
 
