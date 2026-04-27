@@ -1,11 +1,13 @@
 .env
 .env.*
 !.env.example
+.private/
 
 node_modules/
 dist/
 build/
 coverage/
+*.tsbuildinfo
 
 *.log
 npm-debug.log*

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: pokemon-battle
+    runtime: node
+    plan: free
+    region: frankfurt
+    repo: https://github.com/martinlindholmdev/pokemon-battle
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health

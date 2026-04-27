@@ -1,0 +1,56 @@
+# Runbook
+
+## Local Development
+
+```powershell
+npm install
+npm run dev
+```
+
+Client dev server: `http://localhost:5173`. Server API: `http://localhost:4000`.
+
+## Production-Style Local Run
+
+```powershell
+npm run build
+npm start
+Invoke-RestMethod http://localhost:4000/api/health
+```
+
+## Render Deployment
+
+Use a web service connected to `https://github.com/martinlindholmdev/pokemon-battle` on branch `main`.
+
+- Build command: `npm ci && npm run build`
+- Start command: `npm start`
+- Health path: `/api/health`
+- Runtime: Node
+- Plan: free unless the user explicitly approves a paid plan
+
+Required env vars on Render:
+
+- `NODE_ENV=production`
+- `MONGODB_URI` set to the Atlas URI
+- `JWT_SECRET`
+- Optional `WBS_LLM_URL`, `WBS_LLM_MODEL`, `WBS_LLM_API_KEY`
+
+## Health Checks
+
+`/api/health` should return `status: "ok"`, Mongo state `connected`, and ping `true`. A degraded result usually points to MongoDB credentials or Atlas network access.
+
+## Logs
+
+Render service logs should be checked after deploy failures. Do not paste secrets into logs or issue reports.
+
+## Atlas Network Access
+
+For the demo deployment, Atlas may temporarily allow `0.0.0.0/0`. Remove or tighten that rule after live verification, preferably replacing it with Render outbound IP ranges if available.
+
+## Redeploy / Rollback
+
+- Redeploy: push to `main` or trigger a Render deploy for the service.
+- Rollback: redeploy a previous known-good commit from Render or revert through a normal Git commit. Do not use destructive local git resets without approval.
+
+## Secret Rotation
+
+Rotate `JWT_SECRET`, MongoDB credentials, and `WBS_LLM_API_KEY` if they are exposed. Update Render env vars and restart the service.

@@ -29,10 +29,11 @@ The visible proof of completion is:
 - [x] (2026-04-27) Plan-review session found no existing Render service named like `pokemon-battle`.
 - [ ] User pre-run task: temporarily allow Atlas Network Access from `0.0.0.0/0` before starting the autonomous implementation run, then remove or tighten it after live verification.
 - [ ] Confirm new implementation session can read `RENDER_API_KEY`.
-- [ ] Scaffold app workspace.
-- [ ] Implement backend.
-- [ ] Implement frontend.
-- [ ] Run local checks.
+- [x] (2026-04-27) Confirmed implementation session can read `RENDER_API_KEY`.
+- [x] (2026-04-27) Scaffolded npm workspace with `client`, `server`, docs, `.env.example`, and Render config.
+- [x] (2026-04-27) Implemented backend health, auth, leaderboard, aliases, validation, rate limits, and optional AI recap fallback.
+- [x] (2026-04-27) Implemented frontend routes, auth state, PokeAPI fetching, roster persistence, battle simulation, leaderboard UI, and responsive CSS.
+- [x] (2026-04-27) Ran local typecheck, build, lint, audit, health, and Playwright browser flow checks successfully.
 - [ ] Commit and push implementation.
 - [ ] Deploy to Render.
 - [ ] Verify live deployment.
@@ -43,6 +44,7 @@ The visible proof of completion is:
 - The current planning session could not see `RENDER_API_KEY` after `setx`, which is expected on Windows. A new Codex session must be started so the process inherits the variable.
 - A later plan-review session could see `RENDER_API_KEY`, but the implementation session must still re-check its own process environment.
 - Local Atlas connectivity does not prove Render-to-Atlas connectivity. Render-hosted services need Atlas network access for Render outbound IP ranges, or Atlas must already allow the relevant network range.
+- Local MongoDB ping succeeded but collection reads failed with authentication. The server now verifies an application collection read on startup and falls back to the alternate configured Mongo URI without logging either URI.
 - User chose the max-autonomy Atlas strategy: temporarily allow `0.0.0.0/0` in Atlas Network Access for this demo run, then remove or tighten it after Render live verification. This is intentionally temporary and depends on strong database credentials.
 - GitHub MCP code search initially failed because the local MCP server was not receiving `GITHUB_PERSONAL_ACCESS_TOKEN`. The token was stored as a Windows user environment variable, `C:\Users\Martin\.codex\config.toml` was updated to whitelist `env_vars = ["GITHUB_PERSONAL_ACCESS_TOKEN"]` for `[mcp_servers.github]`, and a restarted Codex session confirmed GitHub MCP code search works.
 
