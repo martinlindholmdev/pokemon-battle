@@ -26,9 +26,11 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - [x] Added stricter security headers, removed leaderboard email exposure, and rate-limited score/recap writes.
 - [x] Refreshed screenshots and GitHub-facing docs.
 - [x] Local `typecheck`, `build`, `lint`, `audit`, secret scan, unsafe DOM scan, health check, and Playwright flow passed.
-- [ ] Commit and push cleanup changes to `main`.
-- [ ] Let Render deploy from `main`.
-- [ ] Verify live `/api/health`, `/`, `/leaderboard`, and one full browser flow after deployment.
+- [x] Committed and pushed cleanup commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` to `main`.
+- [x] Render deployed `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` as `dep-d7noct4m0tmc73baa0lg`.
+- [x] Verified live `/api/health`, `/`, `/leaderboard`, removed `/api/agent-workflow`, and a full browser flow.
+- [ ] Commit and push final verification-doc updates.
+- [ ] Let Render deploy the final docs commit and re-check live health.
 
 ## Surprises & Discoveries
 
@@ -196,4 +198,4 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 
 ## Outcomes & Retrospective
 
-Latest local outcome (2026-04-27): cleanup, UI polish, security tightening, docs refresh, and local verification have been completed. The browser flow also confirms `/workflow` now resolves to the not-found page rather than the deleted workflow surface. Commit, push, Render deploy, and live verification remain.
+Latest outcome (2026-04-27): cleanup, UI polish, security tightening, docs refresh, local verification, push, Render deploy, and live browser verification have been completed for commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f`. Final verification docs are being committed as the last repository update.

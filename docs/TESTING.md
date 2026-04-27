@@ -49,6 +49,15 @@ Screenshots:
 - Battle logic is intentionally simple and does not implement full Pokemon type effectiveness.
 - PokeAPI availability is external. The UI has friendly error states, but browsing depends on PokeAPI being reachable.
 
-## Production Verification History
+## Production Verification
 
-The deployed Render service has previously passed `/api/health`, root page, auth, roster, battle, score posting, and leaderboard verification. After this cleanup pass is pushed, Render should auto-deploy from `main` and the same health and browser flow should be re-run.
+Render deploy `dep-d7noct4m0tmc73baa0lg` from commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f` reached `live`.
+
+Verified live:
+
+- `GET https://pokemon-battle-ffwr.onrender.com/api/health`: `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
+- `GET /`: HTTP 200 HTML.
+- `GET /leaderboard`: HTTP 200 HTML.
+- `GET /api/agent-workflow`: HTTP 404, confirming the deleted workflow API is no longer exposed.
+- Playwright browser flow passed for dashboard load, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display.
+- Browser console: no warnings or errors during the live verification script.
