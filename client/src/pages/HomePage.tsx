@@ -10,6 +10,7 @@ export function HomePage() {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("");
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(48);
 
   useEffect(() => {
     fetchPokemonList()
@@ -32,10 +33,10 @@ export function HomePage() {
   const filteredPokemon = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
-      return pokemon.slice(0, 36);
+      return pokemon.slice(0, visibleCount);
     }
-    return pokemon.filter((item) => item.name.includes(normalized) || String(item.id) === normalized).slice(0, 36);
-  }, [pokemon, query]);
+    return pokemon.filter((item) => item.name.includes(normalized) || String(item.id) === normalized);
+  }, [pokemon, query, visibleCount]);
 
   const rosterIds = new Set(roster.map((item) => item.id));
 
@@ -76,7 +77,10 @@ export function HomePage() {
           Search first-generation Pokemon
           <input
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
+            onChange={(event) => {
+              setQuery(event.target.value);
+              setVisibleCount(48);
+            }}
             placeholder="Try pikachu, charizard, or 25"
             type="search"
           />
@@ -86,11 +90,15 @@ export function HomePage() {
           <span>{roster.length === 0 ? "Add at least one Pokemon." : roster.length < 6 ? "Add more or go battle." : "Roster full. Go battle."}</span>
         </div>
       </div>
+      <div className="roster-counter" aria-live="polite">
+        <strong>{roster.length}/6</strong>
+        <span>Pokemon in roster</span>
+      </div>
       <div className="status-strip">
         <span>{pokemon.length} Pokemon indexed</span>
         <span>{filteredPokemon.length} shown</span>
         <span>{roster.length}/6 selected</span>
-        <span>Click a card for stats</span>
+        <span>{query ? "Search is showing every match" : "Load more to browse the full index"}</span>
       </div>
       {message && <p className={status === "error" ? "error" : "notice"}>{message}</p>}
       {status === "loading" && <div className="grid">{Array.from({ length: 8 }, (_, index) => <div className="skeleton" key={index} />)}</div>}
@@ -99,6 +107,16 @@ export function HomePage() {
           {filteredPokemon.map((item) => (
             <PokemonCard key={item.id} pokemon={item} onAdd={handleAdd} selected={rosterIds.has(item.id)} />
           ))}
+        </div>
+      )}
+      {status === "ready" && !query && visibleCount < pokemon.length && (
+        <div className="load-more">
+          <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + 48, pokemon.length))}>
+            Load more Pokemon
+          </button>
+          <span>
+            Showing {filteredPokemon.length} of {pokemon.length}
+          </span>
         </div>
       )}
     </section>

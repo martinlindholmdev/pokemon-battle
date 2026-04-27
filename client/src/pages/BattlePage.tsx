@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { postScore } from "../api/http";
+import { getBattleRecap, postScore } from "../api/http";
 import { fetchPokemonDetail } from "../api/pokeapi";
 import { getRoster } from "../auth/roster";
 import { useAuth } from "../auth/AuthContext";
@@ -21,6 +21,8 @@ interface ArenaState {
   outcome?: "win" | "loss";
   score?: number;
   posted?: boolean;
+  recap?: string;
+  recapSource?: "ai" | "local";
 }
 
 function power(pokemon: PokemonDetail) {
@@ -91,6 +93,17 @@ export function BattlePage() {
     }
 
     try {
+      const recapPromise = getBattleRecap(token, {
+        player: next.player.name,
+        opponent: next.opponent.name,
+        result: outcome,
+        score,
+        turns: finished.log
+      }).catch(() => ({
+        recap: `${next.player.name} ${outcome === "win" ? "won" : "lost"} against ${next.opponent.name} and scored ${score} points.`,
+        source: "local" as const
+      }));
+
       await postScore(token, {
         score,
         wins: outcome === "win" ? 1 : 0,
@@ -98,8 +111,9 @@ export function BattlePage() {
         team: roster.map((pokemon) => pokemon.name),
         opponent: next.opponent.name
       });
-      setArena({ ...finished, posted: true });
-      setNotice("Score posted to leaderboard");
+      const recap = await recapPromise;
+      setArena({ ...finished, posted: true, recap: recap.recap, recapSource: recap.source });
+      setNotice(recap.source === "ai" ? "Score posted. Coach recap generated." : "Score posted. Local coach recap shown.");
     } catch (error) {
       setNotice(error instanceof Error ? error.message : "Score could not be posted");
     }
@@ -202,6 +216,13 @@ export function BattlePage() {
               </button>
             </div>
             <ol className="battle-log">{arena.log.map((turn, index) => <li key={`${turn}-${index}`}>{turn}</li>)}</ol>
+            {arena.outcome && (
+              <div className="coach-recap">
+                <p className="eyebrow">{arena.recapSource === "ai" ? "LLM coach online" : "Local coach fallback"}</p>
+                <h3>Coach recap</h3>
+                <p>{arena.recap ?? "Waiting for the coach report..."}</p>
+              </div>
+            )}
           </div>
           <div className="panel fighter">
             <div className="sprite-stage large">

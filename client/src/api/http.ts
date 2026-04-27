@@ -67,3 +67,17 @@ export function postScore(
     token
   );
 }
+
+export function getBattleRecap(
+  token: string,
+  input: { player: string; opponent: string; result: "win" | "loss"; score: number; turns: string[] }
+) {
+  return request<{ recap: string; source: "ai" | "local" }>(
+    "/api/ai/battle-recap",
+    {
+      method: "POST",
+      body: JSON.stringify(input)
+    },
+    token
+  );
+}
