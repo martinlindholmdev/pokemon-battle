@@ -33,3 +33,5 @@
 - Later live auth/health checks timed out; Render logs showed MongoDB Atlas network access blocking the service. Login/register require restoring Atlas access for the Render service.
 - Reworked frontend UX after a second reference pass: retro Game Boy/Pokedex console frame, animated Pokemon cards, scanline screen surface, clearer how-to-play guidance, in-app Rules page, richer battle terminal, and arcade-style leaderboard.
 - Verified the redesign locally with `npm run typecheck`, `npm run lint`, `npm run build`, and Playwright browser flow. Local screenshots were refreshed.
+- Pushed redesign commit `d823c4b866e1730ee4adc99b41277039f0ef0029`; Render deploy `dep-d7nm5tojs32c73d4mdpg` reached live.
+- Verified live `/api/health`, `/`, `/playbook`, and full Playwright auth/roster/battle/leaderboard flow after the redesign. Live screenshots were refreshed.
