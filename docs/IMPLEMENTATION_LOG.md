@@ -35,6 +35,8 @@
 - Added short-lived web friend rooms under `/api/friend-battles`; these are intentionally unscored and do not affect the leaderboard.
 - Replaced the text-heavy rules page with visual play cards.
 - Code-split the battle route so the 3D stack does not load on the initial Pokedex screen.
+- User acceptance failed: the result was rejected as unsuitable for a six-year-old target audience.
+- Added `docs/KID_UX_ACCEPTANCE_REVIEW.md` to document the product gaps and next recovery plan.
 
 ## Latest Local Verification
 

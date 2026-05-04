@@ -68,6 +68,12 @@ Kid-first changes:
 - The rules page became a six-card visual guide instead of a text-heavy manual.
 - Web friend rooms are short-lived and unscored to preserve leaderboard integrity.
 
+## Acceptance Result
+
+The 2026-05-05 kid-first implementation failed user acceptance. The sources above remain relevant, but the implementation did not apply them strongly enough. The app still reads as a dashboard, exposes too much text and too many abstract choices, and does not yet deliver an obvious child-first battle fantasy.
+
+Next implementation work must start from `docs/KID_UX_ACCEPTANCE_REVIEW.md` rather than treating the current UI as a successful baseline.
+
 ## Code Adaptation
 
 No third-party source code was copied or adapted. The updated React/CSS is original to this repository.

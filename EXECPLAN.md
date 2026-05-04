@@ -6,7 +6,7 @@ This ExecPlan is the current self-contained plan for the repository. Follow `.ag
 
 Pokemon Battle is a single-repository full-stack app for browsing first-generation Pokemon, building a roster, playing a simple turn-based battle, posting scores, and viewing a leaderboard. The final repository should be clean, reviewable, documented, locally verified, and deployed on Render.
 
-The current polish goal is to keep the app focused on the Pokemon product and make the battle experience clearer and more exciting for a six-year-old, pre-reader or early reader:
+The current polish goal was to keep the app focused on the Pokemon product and make the battle experience clearer and more exciting for a six-year-old, pre-reader or early reader:
 
 - kid-first React UI/UX,
 - an actual 3D battle arena,
@@ -17,6 +17,8 @@ The current polish goal is to keep the app focused on the Pokemon product and ma
 - no post-deploy workflow presentation surface,
 - passing local checks,
 - committed, pushed, deployed, and live-verified.
+
+Important acceptance note: the first kid-first arena pass was rejected by the user as not meeting the child UX/product bar. The current build is functional and deployed, but it should not be considered an accepted six-year-old experience. Follow `docs/KID_UX_ACCEPTANCE_REVIEW.md` before attempting the next UI pass.
 
 ## Progress
 
@@ -48,7 +50,11 @@ The current polish goal is to keep the app focused on the Pokemon product and ma
 - [x] Committed and pushed kid-first arena commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532` to `main`.
 - [x] Render deployed `07c6bf4e7b5e0888f35a811ae3208f172ee15532` as `dep-d7sirdvcqfis7382gfng`.
 - [x] Verified live `/api/health`, `/`, `/leaderboard`, `/api/leaderboard`, guest battle arena, and web friend-room create/join.
-- [ ] Commit and push final verification-doc updates for the kid-first deployment.
+- [x] Committed and pushed final verification-doc updates for the kid-first deployment in commit `b729a8f`.
+- [x] Render deployed verification-doc commit `b729a8f` as `dep-d7sittosfn5c73d78820`.
+- [x] User rejected the result as unacceptable for a six-year-old target audience.
+- [x] Documented the acceptance failure and recovery plan in `docs/KID_UX_ACCEPTANCE_REVIEW.md`.
+- [ ] Commit and push the acceptance-failure documentation.
 
 ## Surprises & Discoveries
 
@@ -59,6 +65,7 @@ The current polish goal is to keep the app focused on the Pokemon product and ma
 - The app currently reads like a trainer dashboard for adults. For the six-year-old target, the highest-value changes are visual action buttons, fewer rule words, bigger tap targets, clearer battle state, and animation feedback when something happens.
 - Real-time multiplayer is larger than the current app architecture, but a safe first step is local pass-and-play plus short-lived web friend rooms outside the leaderboard path.
 - The current local production server starts, but `/api/health` is degraded because MongoDB is disconnected in this session. Guest practice and friend-room flows still verify because they do not require MongoDB.
+- Functional browser verification is not the same as child UX acceptance. The previous pass proved routes and controls work, but it did not prove that a pre-reader can understand or enjoy the game.
 
 ## Decision Log
 
@@ -90,6 +97,10 @@ The current polish goal is to keep the app focused on the Pokemon product and ma
   Rationale: The app is React-first, and the Game Studio guidance recommends React Three Fiber for React-hosted 3D while keeping simulation outside the renderer.
   Date/Author: 2026-05-05 / Codex.
 
+- Decision: Treat the current kid-first arena pass as failed acceptance, not as completed product polish.
+  Rationale: The user explicitly rejected the result as unsuitable for the six-year-old target. Future work should redesign the child-facing flow instead of layering more polish onto the dashboard-shaped UI.
+  Date/Author: 2026-05-05 / Codex.
+
 ## Context and Orientation
 
 Repository root:
@@ -109,6 +120,7 @@ Important files:
 - `docs/TESTING.md`: checks and verification notes.
 - `docs/SECURITY_REPORT.md`: security pass and residual risks.
 - `docs/UX_RESEARCH.md`: reference/license decisions.
+- `docs/KID_UX_ACCEPTANCE_REVIEW.md`: current child UX acceptance failure and recovery plan.
 - `docs/IMPLEMENTATION_LOG.md`: concise implementation and verification log.
 
 Production URL:
@@ -119,13 +131,14 @@ Do not print or commit `.env`, API keys, JWT secrets, MongoDB URIs, Render API k
 
 ## Plan of Work
 
-1. Keep the product scope tight: Pokedex, roster, battle, friend rooms, leaderboard, docs, security, deployment.
-2. Preserve the authenticated, signed solo battle and leaderboard path.
-3. Add kid-first UI with recognizable symbols, large targets, visual feedback, and reduced dense copy.
-4. Keep 3D rendering as presentation only; battle rules remain in ordinary TypeScript state/server services.
-5. Run local checks before every commit.
-6. Commit and push to `main`.
-7. Verify Render live health and browser flow after deployment.
+1. Read `docs/KID_UX_ACCEPTANCE_REVIEW.md` before editing the UI again.
+2. Keep the product scope tight: Pokedex, roster, battle, friend rooms, leaderboard, docs, security, deployment.
+3. Preserve the authenticated, signed solo battle and leaderboard path.
+4. Redesign the child-facing battle flow from the child's perspective rather than extending the current dashboard layout.
+5. Keep 3D rendering as presentation only; battle rules remain in ordinary TypeScript state/server services.
+6. Run local checks before every commit.
+7. Commit and push to `main`.
+8. Verify Render live health and browser flow after deployment.
 
 ## Concrete Steps
 
@@ -224,6 +237,22 @@ Acceptance:
 - verified solo leaderboard flow still works,
 - desktop/mobile screenshots show no clipped text or blocked playfield.
 
+Status: failed user acceptance on 2026-05-05. The milestone is functionally implemented but product-quality acceptance is not met.
+
+### Milestone 6: Child-First Redesign Recovery
+
+Replace the dashboard-shaped battle experience with a focused, full-screen child battle prototype.
+
+Acceptance:
+
+- first screen presents a small number of large Pokemon portrait choices,
+- no dropdowns in the child-facing path,
+- no account, leaderboard, score integrity, or room-link concepts in the first battle path,
+- same-computer friend play has a clear handoff screen,
+- move outcomes are understandable without reading the log,
+- screenshots show battle as the primary experience, not a dashboard with an arena panel,
+- a pre-reader can start and complete a battle with minimal adult help.
+
 ## Validation and Acceptance
 
 The repository is acceptable only if these are true or explicitly documented as blocked:
@@ -261,3 +290,5 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, verified battle token replay, and browser flow passed. Render deploy `dep-d7nu8sgpqo0s73812b6g` is live and live verification passed for health, `/leaderboard`, filtered leaderboard rows, and old forged score rejection.
 
 Latest outcome (2026-05-05): kid-first arena polish and friend play were implemented and pushed in commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532`. Typecheck, lint, build, audit, secret scan, unsafe sink scan, and browser playtest passed for guest solo practice, same-PC friend battle, web friend-room create/join, and mobile arena rendering. Local authenticated score verification was blocked by local MongoDB health returning degraded/disconnected. Render deploy `dep-d7sirdvcqfis7382gfng` reached live, and live verification passed for health, browser routes, leaderboard API, guest battle arena, and web friend-room create/join.
+
+Acceptance retrospective (2026-05-05): the user rejected the kid-first result as unacceptable. The current build should be treated as a technically working but product-failed iteration. Future work must prioritize a full child-centered redesign over incremental patching. See `docs/KID_UX_ACCEPTANCE_REVIEW.md`.
