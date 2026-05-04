@@ -23,7 +23,7 @@ Use a web service connected to `https://github.com/martinlindholmdev/pokemon-bat
 
 Current service URL: `https://pokemon-battle-ffwr.onrender.com`
 
-Latest verified cleanup deploy: `dep-d7noct4m0tmc73baa0lg` from commit `d3cc0210ef72fc218d585b17ce5fdbf58a47b21f`.
+Latest verified kid-first arena deploy: `dep-d7sirdvcqfis7382gfng` from commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532`.
 
 - Build command: `npm ci --include=dev && npm run build`
 - Start command: `npm start`

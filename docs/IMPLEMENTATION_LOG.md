@@ -60,12 +60,11 @@
 
 ## Latest Deployment
 
-- Security fix commit pushed: `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3`.
-- Render deploy: `dep-d7nu8sgpqo0s73812b6g`.
+- Kid-first arena commit pushed: `07c6bf4e7b5e0888f35a811ae3208f172ee15532`.
+- Render deploy: `dep-d7sirdvcqfis7382gfng`.
 - Deploy status: `live`.
 - Live URL: `https://pokemon-battle-ffwr.onrender.com`.
 - Live health: `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
-- Live route checks: `/` and `/leaderboard` returned HTTP 200 HTML; `/api/agent-workflow` returned HTTP 404.
-- Live leaderboard API filtered out forged high-score rows.
-- Live forged score POST with arbitrary score fields returned HTTP `400`.
-- Live Playwright flow passed for dashboard, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display with no console warnings or errors.
+- Live route checks: `/`, `/battle`, and `/leaderboard` returned HTTP 200 HTML; `/api/leaderboard` returned HTTP 200.
+- Live friend-room API returned HTTP `201` with a valid room code.
+- Live Playwright flow passed for guest battle start, 3D arena rendering, Hit move feedback, web room creation, and web room join as Blue with no app console warnings or errors.

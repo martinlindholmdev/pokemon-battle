@@ -54,6 +54,20 @@ Screenshots:
 
 ## Production Verification
 
+Render deploy `dep-d7sirdvcqfis7382gfng` from commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532` reached `live`.
+
+Verified live for the kid-first arena pass:
+
+- `GET https://pokemon-battle-ffwr.onrender.com/api/health`: HTTP `200`, `status: ok`, environment `production`, Mongo state `connected`, ping `true`.
+- `GET /`: HTTP `200` HTML.
+- `GET /leaderboard`: HTTP `200` HTML.
+- `GET /api/leaderboard`: HTTP `200`.
+- `POST /api/friend-battles`: HTTP `201` and returned a valid six-character room code.
+- Playwright live flow passed for guest `/battle`, solo practice start, nonblank/sized 3D arena canvas, Hit move feedback, web room creation, and web room join as Blue.
+- Live browser console: no app warnings or errors. Headless Chromium emitted expected software WebGL/GPU capture warnings only.
+
+Previous production verification:
+
 Render deploy `dep-d7nu8sgpqo0s73812b6g` from commit `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3` reached `live`.
 
 Verified live:

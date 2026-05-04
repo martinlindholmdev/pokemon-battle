@@ -44,8 +44,11 @@ The current polish goal is to keep the app focused on the Pokemon product and ma
 - [x] Chose React Three Fiber for a scoped React-hosted 3D arena while keeping battle rules outside the renderer.
 - [x] Added kid-first battle UI, animation feedback, same-PC friend play, and web friend rooms.
 - [x] Re-ran local typecheck, build, lint, audit, secret scan, unsafe sink scan, and browser playtest screenshots.
-- [ ] Resolve local MongoDB health or document it as blocked for authenticated local verification.
-- [ ] Commit, push, deploy, and live-verify this kid-first polish.
+- [x] Documented local MongoDB health as blocked/degraded for authenticated local verification in this session.
+- [x] Committed and pushed kid-first arena commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532` to `main`.
+- [x] Render deployed `07c6bf4e7b5e0888f35a811ae3208f172ee15532` as `dep-d7sirdvcqfis7382gfng`.
+- [x] Verified live `/api/health`, `/`, `/leaderboard`, `/api/leaderboard`, guest battle arena, and web friend-room create/join.
+- [ ] Commit and push final verification-doc updates for the kid-first deployment.
 
 ## Surprises & Discoveries
 
@@ -257,4 +260,4 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 
 Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, verified battle token replay, and browser flow passed. Render deploy `dep-d7nu8sgpqo0s73812b6g` is live and live verification passed for health, `/leaderboard`, filtered leaderboard rows, and old forged score rejection.
 
-Current outcome target (2026-05-05): kid-first arena polish and friend play are implemented locally. Typecheck, lint, build, audit, secret scan, unsafe sink scan, and browser playtest passed for guest solo practice, same-PC friend battle, web friend-room create/join, and mobile arena rendering. Authenticated local score verification is blocked by local MongoDB health returning degraded/disconnected.
+Latest outcome (2026-05-05): kid-first arena polish and friend play were implemented and pushed in commit `07c6bf4e7b5e0888f35a811ae3208f172ee15532`. Typecheck, lint, build, audit, secret scan, unsafe sink scan, and browser playtest passed for guest solo practice, same-PC friend battle, web friend-room create/join, and mobile arena rendering. Local authenticated score verification was blocked by local MongoDB health returning degraded/disconnected. Render deploy `dep-d7sirdvcqfis7382gfng` reached live, and live verification passed for health, browser routes, leaderboard API, guest battle arena, and web friend-room create/join.
