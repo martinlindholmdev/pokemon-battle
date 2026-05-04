@@ -23,6 +23,19 @@
 - Restricted the AI recap route to the same verified battle submission shape.
 - Removed email from newly issued browser auth payloads.
 
+## 2026-05-05
+
+- Reworked the app toward a six-year-old, early-reader target audience.
+- Added a React Three Fiber arena scene for the battle screen while keeping battle state in React/server logic.
+- Made `/battle` and `/roster` guest-friendly; login is now needed only for saving verified trophy scores.
+- Added solo practice from starter picks when the roster is empty.
+- Replaced dense battle commands with large Hit, Block, and Power icon buttons.
+- Changed HP display to pips plus accessible progress values.
+- Added same-computer pass-and-play friend battles.
+- Added short-lived web friend rooms under `/api/friend-battles`; these are intentionally unscored and do not affect the leaderboard.
+- Replaced the text-heavy rules page with visual play cards.
+- Code-split the battle route so the 3D stack does not load on the initial Pokedex screen.
+
 ## Latest Local Verification
 
 - `npm run typecheck`: passed.
@@ -32,12 +45,10 @@
 - Secret scan: no committed secret values found.
 - Unsafe DOM/code scan: no dangerous sink matches.
 - Local production server: `http://localhost:4000`.
-- Local `/api/health`: `status: ok`, Mongo state `connected`, ping `true`.
-- Forged leaderboard score body with a valid local JWT: rejected with HTTP `400`.
-- Verified battle start/replay: server issued a battle token and recomputed a bounded score.
-- Old arbitrary AI recap body: rejected with HTTP `400`.
-- Playwright browser flow: dashboard, direct `/leaderboard`, removed `/workflow` not-found route, register, roster add, battle completion, score post, and leaderboard display all passed.
-- Browser console: no warnings or errors during the verification script.
+- Local `/api/health`: HTTP `503`, `status: degraded`, Mongo state `disconnected`, ping `false` in this session.
+- Authenticated score, AI recap, and forged score rejection were not rerun because local MongoDB was disconnected.
+- Playwright browser flow: dashboard load, guest solo practice battle, nonblank/sized 3D arena canvas, Hit move feedback, same-PC friend battle turn advance, web room creation/join, and mobile battle screenshot all passed.
+- Browser console: no app warnings or errors during the verification script; headless Chromium emitted expected software WebGL/GPU capture warnings.
 
 ## Latest Screenshots
 

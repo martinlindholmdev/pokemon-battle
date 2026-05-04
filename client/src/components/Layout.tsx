@@ -25,7 +25,7 @@ export function Layout() {
           <span className="brand-mark">PB</span>
           <div>
             <strong>Pokemon Battle</strong>
-            <small>Trainer command center</small>
+            <small>Pick, battle, cheer</small>
           </div>
         </div>
         <div className="console-led">
@@ -34,19 +34,19 @@ export function Layout() {
         </div>
         <nav>
           <NavLink to="/">
-            <Home size={18} /> Pokedex
+            <Home size={18} /> Cards
           </NavLink>
           <NavLink to="/roster">
-            <Shield size={18} /> Roster
+            <Shield size={18} /> Team
           </NavLink>
           <NavLink to="/battle">
             <Dumbbell size={18} /> Battle
           </NavLink>
           <NavLink to="/leaderboard">
-            <Trophy size={18} /> Leaderboard
+            <Trophy size={18} /> Trophies
           </NavLink>
           <NavLink to="/playbook">
-            <BookOpen size={18} /> Rules
+            <BookOpen size={18} /> How
           </NavLink>
           {!user && (
             <NavLink to="/register">
@@ -71,7 +71,7 @@ export function Layout() {
           )}
         </div>
         <div className="roster-dock">
-          <strong>Roster slots</strong>
+          <strong>Team spots</strong>
           <div className="slot-grid">
             {Array.from({ length: 6 }, (_, index) => (
               <span className={roster[index] ? "slot filled" : "slot"} key={index}>
@@ -79,7 +79,7 @@ export function Layout() {
               </span>
             ))}
           </div>
-          <small>{roster.length < 1 ? "Add one Pokemon to unlock Battle." : `${roster.length}/6 ready for the arena.`}</small>
+          <small>{roster.length < 1 ? "Starter picks ready." : `${roster.length}/6 ready.`}</small>
         </div>
       </aside>
       <main className="content">

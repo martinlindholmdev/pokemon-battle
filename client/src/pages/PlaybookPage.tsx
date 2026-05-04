@@ -1,48 +1,51 @@
+import { Plus, Shield, Sparkles, Swords, Trophy, Users } from "lucide-react";
+
 export function PlaybookPage() {
   return (
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Battle manual</p>
-          <h1>How to play</h1>
+          <p className="eyebrow">How to play</p>
+          <h1>Big buttons. Big battles.</h1>
         </div>
         <div className="mission-card">
-          <strong>Quick loop</strong>
-          <span>Register</span>
-          <span>Add Pokemon</span>
-          <span>Battle and score</span>
+          <strong>Quick path</strong>
+          <span>Pick favorites</span>
+          <span>Press Start</span>
+          <span>Cheer the winner</span>
         </div>
       </div>
-      <div className="detail-layout">
-        <article className="panel">
-          <h2>Trainer journey</h2>
-          <ol className="battle-log">
-            <li>Create or log into a trainer account.</li>
-            <li>Search or scan the first-generation Pokedex and add Pokemon with the plus button.</li>
-            <li>Open Roster to manage up to six Pokemon.</li>
-            <li>Open Battle, choose one fighter, and start the match.</li>
-            <li>Check the Leaderboard after your score posts.</li>
-          </ol>
+      <div className="playbook-grid">
+        <article className="panel play-card">
+          <Plus size={34} />
+          <h2>Pick</h2>
+          <p>Add Pokemon cards to your team, or use the starter picks.</p>
         </article>
-        <article className="panel">
-          <h2>Battle rules</h2>
-          <div className="status-strip vertical">
-            <span>Roster limit: 6 Pokemon</span>
-            <span>Minimum to battle: 1 Pokemon</span>
-            <span>Opponent: random first-generation Pokemon</span>
-            <span>Win: battle power plus HP bonus</span>
-            <span>Loss: half battle power</span>
-          </div>
+        <article className="panel play-card">
+          <Swords size={34} />
+          <h2>Hit</h2>
+          <p>Big attack. Use it when you want to win fast.</p>
         </article>
-      </div>
-      <div className="panel">
-        <h2>What makes a strong pick?</h2>
-        <div className="status-strip">
-          <span>Attack improves hit damage</span>
-          <span>Speed improves hit damage</span>
-          <span>HP helps score bonus</span>
-          <span>Defense raises battle power</span>
-        </div>
+        <article className="panel play-card">
+          <Shield size={34} />
+          <h2>Block</h2>
+          <p>Small attack. Takes less hurt back.</p>
+        </article>
+        <article className="panel play-card">
+          <Sparkles size={34} />
+          <h2>Power</h2>
+          <p>Charge up. Your next Hit gets stronger.</p>
+        </article>
+        <article className="panel play-card">
+          <Users size={34} />
+          <h2>Friends</h2>
+          <p>Play on one computer, or make a web room code.</p>
+        </article>
+        <article className="panel play-card">
+          <Trophy size={34} />
+          <h2>Trophies</h2>
+          <p>Log in when you want scores saved.</p>
+        </article>
       </div>
     </section>
   );

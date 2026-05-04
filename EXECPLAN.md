@@ -1,4 +1,4 @@
-# Pokemon Battle Final Polish ExecPlan
+# Pokemon Battle Kid-First Arena Polish ExecPlan
 
 This ExecPlan is the current self-contained plan for the repository. Follow `.agent/PLANS.md` and keep this file current when making project changes.
 
@@ -6,9 +6,12 @@ This ExecPlan is the current self-contained plan for the repository. Follow `.ag
 
 Pokemon Battle is a single-repository full-stack app for browsing first-generation Pokemon, building a roster, playing a simple turn-based battle, posting scores, and viewing a leaderboard. The final repository should be clean, reviewable, documented, locally verified, and deployed on Render.
 
-The current cleanup goal is to keep the app focused on the Pokemon product:
+The current polish goal is to keep the app focused on the Pokemon product and make the battle experience clearer and more exciting for a six-year-old, pre-reader or early reader:
 
-- polished React UI/UX,
+- kid-first React UI/UX,
+- an actual 3D battle arena,
+- picture-forward battle controls with short labels,
+- local friend play and lightweight web friend rooms outside verified scoring,
 - secure Express/MongoDB API,
 - clear README and docs,
 - no post-deploy workflow presentation surface,
@@ -36,6 +39,13 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - [x] Render deployed `4d8b7e61fa9eeda88bd20aabe83ada8e5d1dfdc3` as `dep-d7nu8sgpqo0s73812b6g`.
 - [x] Verified live `/api/health`, `/leaderboard`, filtered `/api/leaderboard`, and old forged score rejection.
 - [ ] Commit and push final verification-doc updates for the security deployment.
+- [x] Started kid-first review for a six-year-old target audience on 2026-05-05.
+- [x] Reviewed child UX references: large visual targets, low text, recognizable icons, immediate feedback, foreground clarity, and simple prompts.
+- [x] Chose React Three Fiber for a scoped React-hosted 3D arena while keeping battle rules outside the renderer.
+- [x] Added kid-first battle UI, animation feedback, same-PC friend play, and web friend rooms.
+- [x] Re-ran local typecheck, build, lint, audit, secret scan, unsafe sink scan, and browser playtest screenshots.
+- [ ] Resolve local MongoDB health or document it as blocked for authenticated local verification.
+- [ ] Commit, push, deploy, and live-verify this kid-first polish.
 
 ## Surprises & Discoveries
 
@@ -43,6 +53,9 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
 - The actual Pokemon Showdown client is AGPL-3.0, so its frontend code should not be copied into this app.
 - The old compatibility alias for `GET /leaderboard` conflicted with the React `/leaderboard` page on direct browser navigation. The server now serves the React page when the request accepts HTML and leaves JSON APIs under `/api/leaderboard`.
 - The live leaderboard contained forged rows because `POST /api/leaderboard` trusted authenticated client-submitted score fields. The app now hides unverifiable legacy rows from public responses without deleting database data.
+- The app currently reads like a trainer dashboard for adults. For the six-year-old target, the highest-value changes are visual action buttons, fewer rule words, bigger tap targets, clearer battle state, and animation feedback when something happens.
+- Real-time multiplayer is larger than the current app architecture, but a safe first step is local pass-and-play plus short-lived web friend rooms outside the leaderboard path.
+- The current local production server starts, but `/api/health` is degraded because MongoDB is disconnected in this session. Guest practice and friend-room flows still verify because they do not require MongoDB.
 
 ## Decision Log
 
@@ -66,6 +79,14 @@ The current cleanup goal is to keep the app focused on the Pokemon product:
   Rationale: Authenticated clients can forge browser-calculated results. Battle start now returns a signed, short-lived token bound to the user; score creation accepts only that token and a bounded move list, then recomputes score, outcome, team, and opponent on the server.
   Date/Author: 2026-04-28 / Codex.
 
+- Decision: Keep friend battles separate from verified leaderboard scoring.
+  Rationale: Friend play should be easy for a child, but public scores must remain server-verified and authenticated. Friend rooms can be lightweight play sessions without score posting.
+  Date/Author: 2026-05-05 / Codex.
+
+- Decision: Use React Three Fiber for the arena scene, with DOM controls and battle state still owned by React.
+  Rationale: The app is React-first, and the Game Studio guidance recommends React Three Fiber for React-hosted 3D while keeping simulation outside the renderer.
+  Date/Author: 2026-05-05 / Codex.
+
 ## Context and Orientation
 
 Repository root:
@@ -76,8 +97,10 @@ Important files:
 
 - `README.md`: GitHub-facing overview with screenshots.
 - `client/src`: React app.
+- `client/src/components/BattleArena3D.tsx`: React-hosted 3D battle arena scene.
 - `server/src`: Express API.
 - `server/src/services/battle.ts`: battle token verification, result replay, public leaderboard row filter.
+- `server/src/routes/friendBattles.ts`: lightweight friend-room battle API.
 - `docs/ARCHITECTURE.md`: architecture and routes.
 - `docs/RUNBOOK.md`: local/deploy operations.
 - `docs/TESTING.md`: checks and verification notes.
@@ -93,11 +116,13 @@ Do not print or commit `.env`, API keys, JWT secrets, MongoDB URIs, Render API k
 
 ## Plan of Work
 
-1. Keep the product scope tight: Pokedex, roster, battle, leaderboard, docs, security, deployment.
-2. Prefer minimal, readable changes that follow the existing React/Vite/Express structure.
-3. Run local checks before every commit.
-4. Commit and push to `main`.
-5. Verify Render live health and browser flow after deployment.
+1. Keep the product scope tight: Pokedex, roster, battle, friend rooms, leaderboard, docs, security, deployment.
+2. Preserve the authenticated, signed solo battle and leaderboard path.
+3. Add kid-first UI with recognizable symbols, large targets, visual feedback, and reduced dense copy.
+4. Keep 3D rendering as presentation only; battle rules remain in ordinary TypeScript state/server services.
+5. Run local checks before every commit.
+6. Commit and push to `main`.
+7. Verify Render live health and browser flow after deployment.
 
 ## Concrete Steps
 
@@ -130,6 +155,11 @@ Browser verification must cover:
 - leaderboard row display,
 - forged `POST /api/leaderboard` body is rejected,
 - desktop/tablet/mobile screenshot check.
+- kid-first battle first screen is clear without dense text,
+- Strike, Guard, and Focus have visual symbols and feedback,
+- local friend mode works on one computer,
+- web friend-room create/join flow works or an exact blocker is documented,
+- 3D arena canvas renders nonblank on desktop and mobile.
 
 ## Milestones
 
@@ -178,6 +208,19 @@ Acceptance:
 - live `/api/health` returns ok,
 - live app flow works.
 
+### Milestone 5: Kid-First Arena And Friend Play
+
+Add a visually clear battle experience for an early reader.
+
+Acceptance:
+
+- battle screen has an arena scene rather than only panels,
+- core moves use icons/symbols and short labels,
+- cards and fighters animate on meaningful state changes,
+- friend play works locally and via a lightweight web room,
+- verified solo leaderboard flow still works,
+- desktop/mobile screenshots show no clipped text or blocked playfield.
+
 ## Validation and Acceptance
 
 The repository is acceptable only if these are true or explicitly documented as blocked:
@@ -213,3 +256,5 @@ Use the Render API only if `RENDER_API_KEY` is present in the process environmen
 ## Outcomes & Retrospective
 
 Latest outcome (2026-04-28): the leaderboard integrity issue was reproduced and fixed by replacing client-submitted score fields with signed battle tokens plus server-side result replay. Local typecheck, build, lint, audit, unsafe sink scans, forged score rejection, verified battle token replay, and browser flow passed. Render deploy `dep-d7nu8sgpqo0s73812b6g` is live and live verification passed for health, `/leaderboard`, filtered leaderboard rows, and old forged score rejection.
+
+Current outcome target (2026-05-05): kid-first arena polish and friend play are implemented locally. Typecheck, lint, build, audit, secret scan, unsafe sink scan, and browser playtest passed for guest solo practice, same-PC friend battle, web friend-room create/join, and mobile arena rendering. Authenticated local score verification is blocked by local MongoDB health returning degraded/disconnected.

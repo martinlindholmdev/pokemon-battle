@@ -2,7 +2,7 @@
 
 ![Pokemon Battle dashboard](docs/screenshots/local-desktop-1440x900.png)
 
-Pokemon Battle is a full-stack browser game where trainers browse the first-generation Pokedex, build a roster, enter a turn-based battle arena, and post scores to a live leaderboard.
+Pokemon Battle is a full-stack browser game where trainers browse the first-generation Pokedex, build a roster, enter a 3D turn-based battle arena, play friend battles, and post verified solo scores to a live trophy board.
 
 The app is intentionally compact: one React client, one Express API, one MongoDB-backed leaderboard, and a production deployment on Render.
 
@@ -10,12 +10,13 @@ The app is intentionally compact: one React client, one Express API, one MongoDB
 
 - Search and browse 151 first-generation Pokemon from PokeAPI.
 - Inspect official artwork, type badges, core stats, height, weight, and abilities.
-- Save up to six Pokemon in a local roster.
-- Register or log in as a trainer.
-- Start a battle with a selected lead Pokemon.
-- Use Strike, Guard, and Focus commands while HP bars and the battle log update.
-- Post the final score to a MongoDB-backed leaderboard.
-- Read the in-app rules page for the scoring model and battle loop.
+- Save up to six Pokemon in a local roster, or use starter picks immediately.
+- Start a solo practice battle without logging in.
+- Log in when you want verified solo battle scores saved.
+- Use big Hit, Block, and Power buttons while HP pips and arena animations update.
+- Play pass-and-play friend battles on one computer.
+- Create short web friend-room codes for unscored battles over the deployed app.
+- Read the kid-friendly visual rules page.
 
 ## Screenshots
 
@@ -29,7 +30,7 @@ The app is intentionally compact: one React client, one Express API, one MongoDB
 
 ## Stack
 
-- Client: React, TypeScript, React Router, Vite, lucide-react, CSS.
+- Client: React, TypeScript, React Router, Vite, React Three Fiber, Three.js, lucide-react, CSS.
 - Server: Express, TypeScript, Mongoose, Zod, JWT, bcryptjs, helmet, express-rate-limit.
 - Data: MongoDB local development or MongoDB Atlas production.
 - External data: PokeAPI and PokeAPI official artwork URLs.

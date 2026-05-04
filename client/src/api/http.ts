@@ -20,6 +20,7 @@ export interface ScoreEntry {
 }
 
 export type BattleMove = "strike" | "guard" | "focus";
+export type FriendSide = "one" | "two";
 
 export interface BattleStart {
   battleToken: string;
@@ -45,6 +46,24 @@ export interface PostedBattle {
     recap: string;
     source: "ai" | "local";
   };
+}
+
+export interface FriendBattleRoom {
+  code: string;
+  one: PokemonDetail;
+  two: PokemonDetail | null;
+  state: {
+    oneHp: number;
+    twoHp: number;
+    turn: FriendSide;
+    round: number;
+    guard: Record<FriendSide, boolean>;
+    focus: Record<FriendSide, number>;
+    log: string[];
+    winner?: FriendSide;
+    lastMove?: BattleMove;
+  } | null;
+  expiresAt: string;
 }
 
 async function request<T>(path: string, options: RequestInit = {}, token?: string | null): Promise<T> {
@@ -114,4 +133,29 @@ export function getBattleRecap(token: string, input: { battleToken: string; move
     },
     token
   );
+}
+
+export function createFriendBattle(input: { playerId: number }) {
+  return request<{ room: FriendBattleRoom }>("/api/friend-battles", {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export function getFriendBattle(code: string) {
+  return request<{ room: FriendBattleRoom }>(`/api/friend-battles/${encodeURIComponent(code)}`);
+}
+
+export function joinFriendBattle(code: string, input: { playerId: number }) {
+  return request<{ room: FriendBattleRoom }>(`/api/friend-battles/${encodeURIComponent(code)}/join`, {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
+}
+
+export function playFriendMove(code: string, input: { side: FriendSide; move: BattleMove }) {
+  return request<{ room: FriendBattleRoom }>(`/api/friend-battles/${encodeURIComponent(code)}/move`, {
+    method: "POST",
+    body: JSON.stringify(input)
+  });
 }

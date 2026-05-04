@@ -1,15 +1,24 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { AuthProvider } from "./auth/AuthContext";
-import { ProtectedRoute } from "./auth/ProtectedRoute";
 import { Layout } from "./components/Layout";
 import { AuthPage } from "./pages/AuthPage";
-import { BattlePage } from "./pages/BattlePage";
 import { HomePage } from "./pages/HomePage";
 import { LeaderboardPage } from "./pages/LeaderboardPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { PlaybookPage } from "./pages/PlaybookPage";
 import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 import { RosterPage } from "./pages/RosterPage";
+
+const BattlePage = lazy(() => import("./pages/BattlePage").then((module) => ({ default: module.BattlePage })));
+
+function ArenaRoute() {
+  return (
+    <Suspense fallback={<div className="route-loading">Opening arena...</div>}>
+      <BattlePage />
+    </Suspense>
+  );
+}
 
 const router = createBrowserRouter([
   {
@@ -22,13 +31,8 @@ const router = createBrowserRouter([
       { path: "playbook", element: <PlaybookPage /> },
       { path: "login", element: <AuthPage mode="login" /> },
       { path: "register", element: <AuthPage mode="register" /> },
-      {
-        element: <ProtectedRoute />,
-        children: [
-          { path: "roster", element: <RosterPage /> },
-          { path: "battle", element: <BattlePage /> }
-        ]
-      },
+      { path: "roster", element: <RosterPage /> },
+      { path: "battle", element: <ArenaRoute /> },
       { path: "*", element: <NotFoundPage /> }
     ]
   }

@@ -62,41 +62,41 @@ export function HomePage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Live Pokedex</p>
-          <h1>Build a battle team</h1>
+          <p className="eyebrow">Pokemon cards</p>
+          <h1>Pick your team</h1>
         </div>
         <div className="mission-card">
-          <strong>Match flow</strong>
-          <span>Pick 1-6 Pokemon</span>
-          <span>Choose a lead fighter</span>
-          <span>Post your arena score</span>
+          <strong>Ready?</strong>
+          <span>Pick favorites</span>
+          <span>Press Battle</span>
+          <span>Win trophies</span>
         </div>
       </div>
       <div className="pokedex-toolbar">
         <label>
-          Search first-generation Pokemon
+          Find Pokemon
           <input
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
               setVisibleCount(48);
             }}
-            placeholder="Try pikachu, charizard, or 25"
+            placeholder="pikachu, charizard, or 25"
             type="search"
           />
         </label>
         <div className="trainer-steps">
-          <strong>Next action</strong>
-          <span>{roster.length === 0 ? "Add at least one Pokemon." : roster.length < 6 ? "Add more or go battle." : "Roster full. Go battle."}</span>
+          <strong>Next</strong>
+          <span>{roster.length === 0 ? "Tap plus or press Battle." : roster.length < 6 ? "Pick more or battle." : "Team full. Battle time."}</span>
         </div>
       </div>
       <div className="status-strip">
-        <span>{pokemon.length} Pokemon indexed</span>
+        <span>{pokemon.length} Pokemon</span>
         <span>{filteredPokemon.length} shown</span>
         <span className="roster-counter" aria-live="polite">
-          <strong>{roster.length}/6</strong> roster
+          <strong>{roster.length}/6</strong> team
         </span>
-        <span>{query ? "Search is showing every match" : "Load more to browse the full index"}</span>
+        <span>{query ? "Matches" : "More cards below"}</span>
       </div>
       {message && <p className={status === "error" ? "error" : "notice"}>{message}</p>}
       {status === "loading" && <div className="grid">{Array.from({ length: 8 }, (_, index) => <div className="skeleton" key={index} />)}</div>}
@@ -110,10 +110,10 @@ export function HomePage() {
       {status === "ready" && !query && visibleCount < pokemon.length && (
         <div className="load-more">
           <button type="button" onClick={() => setVisibleCount((count) => Math.min(count + 48, pokemon.length))}>
-            Load more
+            More Pokemon
           </button>
           <span>
-            Showing {filteredPokemon.length} of {pokemon.length}
+            {filteredPokemon.length} / {pokemon.length}
           </span>
         </div>
       )}

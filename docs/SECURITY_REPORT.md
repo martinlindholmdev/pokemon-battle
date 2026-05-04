@@ -100,3 +100,4 @@ Result: no matches.
 - The optional WBS LLM endpoint is server-side and has a deterministic fallback, but it still depends on external availability when configured.
 - JWT storage remains in `localStorage` by project requirement, so continued XSS prevention remains important.
 - The server verifies battle tokens and recomputes results, but the battle is still a simple game, not a fraud-resistant anti-cheat system.
+- Friend rooms are unauthenticated and in-memory by design for easy child-friendly play. They are rate-limited, short-lived, not persisted, and never write leaderboard scores.

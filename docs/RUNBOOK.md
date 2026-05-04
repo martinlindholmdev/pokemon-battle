@@ -53,7 +53,10 @@ After every deploy, verify:
 - `/leaderboard`
 - register/login
 - roster add
-- battle completion
+- guest solo practice battle
+- same-PC friend battle
+- web friend-room create/join
+- authenticated solo battle completion
 - leaderboard score display
 
 ## Logs

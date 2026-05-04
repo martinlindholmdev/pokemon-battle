@@ -13,20 +13,20 @@ export function LeaderboardPage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Arena records</p>
-          <h1>Leaderboard</h1>
+          <p className="eyebrow">Arena trophies</p>
+          <h1>Trophies</h1>
         </div>
         <div className="mission-card">
-          <strong>Score rules</strong>
-          <span>Wins get HP bonus</span>
-          <span>Losses still score</span>
+          <strong>Saved battles</strong>
+          <span>Win trophies</span>
+          <span>Try again anytime</span>
         </div>
       </div>
       {error && <p className="error">{error}</p>}
       {!error && scores.length === 0 && (
         <div className="empty-state panel">
-          <h2>No scores yet</h2>
-          <p>Win or lose a battle while logged in to create the first entry.</p>
+          <h2>No trophies yet</h2>
+          <p>Log in and finish a solo battle to save one.</p>
         </div>
       )}
       <div className="leaderboard">

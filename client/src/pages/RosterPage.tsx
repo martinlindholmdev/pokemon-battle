@@ -9,9 +9,9 @@ export function RosterPage() {
   if (roster.length === 0) {
     return (
       <section className="empty-state">
-        <h1>Your roster is empty</h1>
-        <p>Add Pokemon from the dashboard before entering battle. You only need one to start.</p>
-        <Link className="primary link-button" to="/">Open Pokedex</Link>
+        <h1>Your team is empty</h1>
+        <p>Starter picks still work in Battle. Add favorites when you want.</p>
+        <Link className="primary link-button" to="/">Open cards</Link>
       </section>
     );
   }
@@ -20,13 +20,13 @@ export function RosterPage() {
     <section>
       <div className="page-heading">
         <div>
-          <p className="eyebrow">Trainer roster</p>
+          <p className="eyebrow">Team</p>
           <h1>My squad</h1>
         </div>
         <div className="mission-card">
-          <strong>{roster.length}/6 slots filled</strong>
-          <span>Choose a lead in Battle</span>
-          <span>Trim the bench anytime</span>
+          <strong>{roster.length}/6 spots</strong>
+          <span>Pick a lead in Battle</span>
+          <span>Swap anytime</span>
         </div>
       </div>
       <div className="grid">

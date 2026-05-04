@@ -40,6 +40,34 @@ The frontend in this repository is original React and CSS. Third-party projects 
 - Empty, loading, error, auth, battle-in-progress, and leaderboard states are explicitly styled.
 - Desktop, tablet, and mobile screenshots were regenerated after the redesign.
 
+## Kid-First Review Addendum
+
+Date: 2026-05-05
+
+Target user: six-year-old, pre-reader or early reader.
+
+Additional sources reviewed:
+
+- UserTesting kids UX guide: https://www.usertesting.com/blog/ux-for-kids
+  - Used for age segmentation, large visual targets, immediate visual/audio-style feedback, and simpler kid vocabulary.
+- Child-Computer Interaction, First Edition: https://homepage.divms.uiowa.edu/~hourcade/book/child-computer-interaction-first-edition.pdf
+  - Used for minimizing text for preliterate or beginning readers and keeping icons recognizable, distinguishable, and clickable.
+- TIDRC children touchscreen recommendations: https://stirlab.org/wp-content/uploads/A-Framework-of-Touchscreen-Interaction-Design-Recommendations-for-Children-TIDRC-Characterizing-the-Gap-between-Research-Evidence-and-Design-Practice.pdf
+  - Used for foreground clarity, low visual complexity, explicit prompts, meaningful feedback, and large forgiving interactions.
+- Pokemon Stadium reference: https://en.wikipedia.org/wiki/Pok%C3%A9mon_Stadium
+  - Used as high-level inspiration for 3D turn-based arena framing, visible combatants, and battle-focused play. No code or assets copied.
+
+Kid-first changes:
+
+- Battle is no longer blocked by login. Guests can practice and play friends; login is only needed to save trophy scores.
+- The battle route now has three clear modes: Solo, Same PC, and Web.
+- The arena is a React-hosted 3D scene with DOM controls, keeping gameplay rules outside the renderer.
+- Move buttons use large icons and short labels: Hit, Block, Power.
+- HP displays use pips plus the accessible progress value, reducing visible number dependence.
+- Dense battle text was shortened into small story beats.
+- The rules page became a six-card visual guide instead of a text-heavy manual.
+- Web friend rooms are short-lived and unscored to preserve leaderboard integrity.
+
 ## Code Adaptation
 
 No third-party source code was copied or adapted. The updated React/CSS is original to this repository.

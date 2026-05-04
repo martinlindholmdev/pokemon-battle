@@ -8,6 +8,7 @@ import { battlesRouter } from "./routes/battles.js";
 import { leaderboardRouter } from "./routes/leaderboard.js";
 import { healthRouter } from "./routes/health.js";
 import { aiRouter } from "./routes/ai.js";
+import { friendBattlesRouter } from "./routes/friendBattles.js";
 import { errorHandler } from "./middleware/error.js";
 import { requireDatabase } from "./middleware/database.js";
 
@@ -46,6 +47,7 @@ export function createApp() {
   app.use(express.json({ limit: "100kb" }));
 
   app.use("/api/health", healthRouter);
+  app.use("/api/friend-battles", friendBattlesRouter);
   app.use("/api/auth", requireDatabase, authRouter);
   app.use("/api/battles", requireDatabase, battlesRouter);
   app.use("/api/leaderboard", requireDatabase, leaderboardRouter);
